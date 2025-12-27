@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Velu Resternt</title>
+  <title>Resternt</title>
   <style>
     body {
       margin: 0;
@@ -28,7 +28,7 @@
       background: #ff6f61;
       flex-wrap: wrap;
       position: sticky;
-      top: 55px; /* below header */
+      top: 55px;
       z-index: 999;
     }
     nav a {
@@ -36,9 +36,23 @@
       text-decoration: none;
       padding: 10px;
       font-weight: bold;
+      transition: background 0.3s, transform 0.3s;
+    }
+    nav a.active {
+      background: #ffecd2;
+      color: #ff4e50;
+      border-radius: 5px;
+      transform: scale(1.1);
     }
     section {
       padding: 15px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    section.active {
+      opacity: 1;
+      transform: translateY(0);
     }
     h2 {
       color: #ff4e50;
@@ -82,12 +96,13 @@
     <a href="#beverages">Beverages</a>
   </nav>
 
-  <section id="tiffin">
+  <section id="tiffin" class="active">
     <h2>Tiffin</h2>
     <ul>
       <li><span>Idli (2 pcs)</span><span>₹30</span></li>
       <li><span>Dosa</span><span>₹50</span></li>
       <li><span>Poori</span><span>₹40</span></li>
+      <li><span>Upma</span><span>₹45</span></li>
     </ul>
   </section>
 
@@ -97,6 +112,7 @@
       <li><span>Veg Thali</span><span>₹120</span></li>
       <li><span>Chicken Curry with Rice</span><span>₹180</span></li>
       <li><span>Paneer Butter Masala</span><span>₹150</span></li>
+      <li><span>Curd Rice</span><span>₹90</span></li>
     </ul>
   </section>
 
@@ -106,6 +122,7 @@
       <li><span>Roti with Dal</span><span>₹100</span></li>
       <li><span>Fish Fry</span><span>₹200</span></li>
       <li><span>Mutton Biryani</span><span>₹250</span></li>
+      <li><span>Veg Pulao</span><span>₹130</span></li>
     </ul>
   </section>
 
@@ -115,6 +132,7 @@
       <li><span>Samosa</span><span>₹20</span></li>
       <li><span>Pav Bhaji</span><span>₹70</span></li>
       <li><span>French Fries</span><span>₹90</span></li>
+      <li><span>Pakora</span><span>₹50</span></li>
     </ul>
   </section>
 
@@ -124,6 +142,7 @@
       <li><span>Masala Chai</span><span>₹20</span></li>
       <li><span>Cold Coffee</span><span>₹60</span></li>
       <li><span>Lassi</span><span>₹50</span></li>
+      <li><span>Fresh Lime Soda</span><span>₹40</span></li>
     </ul>
   </section>
 
@@ -131,5 +150,29 @@
     📍 Address: 123 Food Street, Bengaluru<br>
     ☎️ Phone: +91 98765 43210
   </footer>
+
+  <script>
+    const navLinks = document.querySelectorAll("nav a");
+    const sections = document.querySelectorAll("section");
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        // remove active from all links
+        navLinks.forEach(l => l.classList.remove("active"));
+        // add active to clicked link
+        link.classList.add("active");
+
+        // hide all sections
+        sections.forEach(sec => sec.classList.remove("active"));
+        // show selected section
+        const target = document.querySelector(link.getAttribute("href"));
+        target.classList.add("active");
+
+        // smooth scroll
+        target.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  </script>
 </body>
 </html>
