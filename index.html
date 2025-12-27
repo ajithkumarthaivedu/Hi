@@ -1,201 +1,101 @@
-78<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Murugan Hotel Menu</title>
-  <style>
-    :root {
-      --primary: #ff6f61;
-      --nav: #2f3e46;
-      --bg1: #fbc2eb;
-      --bg2: #a6c1ee;
-      --card: #ffffffee;
-      --text: #222;
-    }
-    body {
-      margin: 0; font-family: Arial, sans-serif; color: var(--text);
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-    }
-    header {
-      background: var(--primary); color: #fff; text-align: center;
-      padding: 18px; font-size: 26px; letter-spacing: 0.5px;
-    }
-    nav {
-      background: var(--nav); display: flex; flex-wrap: wrap;
-    }
-    nav button {
-      flex: 1; background: none; border: none; color: #fff;
-      padding: 12px; cursor: pointer; font-size: 16px;
-    }
-    nav button:hover { background: #ffffff22; }
-    main {
-      max-width: 900px; margin: 24px auto; padding: 0 16px;
-    }
-    .card {
-      background: var(--card); border-radius: 12px; padding: 18px;
-      box-shadow: 0 6px 18px #00000022;
-    }
-    h2 { margin: 0 0 14px; color: #1f2937; }
-    table {
-      width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden;
-    }
-    thead { background: #ffe0da; }
-    th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; }
-    tbody tr:hover { background: #f9fafb; }
-    footer {
-      background: var(--primary); color: #fff; text-align: center;
-      padding: 10px; font-size: 14px; position: fixed; bottom: 0; width: 100%;
-    }
-    .menu { display: none; }
-    .menu.active { display: block; }
-  </style>
-</head>
-<body>
-  <header>Murugan Hotel</header>
-  <nav>
-    <button onclick="showMenu('tiffin')">Tiffin</button>
-    <button onclick="showMenu('lunch')">Lunch</button>
-    <button onclick="showMenu('dinner')">Dinner</button>
-    <button onclick="showMenu('snacks')">Snacks</button>
-    <button onclick="showMenu('beverages')">Beverages</button>
-  </nav>
-  <main>
-    <!-- Tiffin -->
-    <div id="tiffin" class="menu active card">
-      <h2>Tiffin Menu</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
-        <tbody>
-          <tr><td>Idli Sambar</td><td>₹30</td></tr>
-          <tr><td>Masala Dosa</td><td>₹50</td></tr>
-          <tr><td>Upma</td><td>₹35</td></tr>
-          <tr><td>Pongal</td><td>₹40</td></tr>
-        </tbody>
-      </table>
-    </div>
+:root {
+  --primary: #ff6f61;
+  --nav: #2f3e46;
+  --bg1: #fbc2eb;
+  --bg2: #a6c1ee;
+  --card: #ffffffee;
+  --text: #222;
+}
 
-    <!-- Lunch -->
-    <div id="lunch" class="menu card">
-      <h2>Lunch Menu</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
-        <tbody>
-          <tr><td>Veg Thali</td><td>₹120</td></tr>
-          <tr><td>Paneer Butter Masala</td><td>₹150</td></tr>
-          <tr><td>Chicken Biryani</td><td>₹180</td></tr>
-          <tr><td>Curd Rice</td><td>₹60</td></tr>
-        </tbody>
-      </table>
-    </div>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  line-height: 1.6; /* improves readability */
+}
 
-    <!-- Dinner -->
-    <div id="dinner" class="menu card">
-      <h2>Dinner Menu</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
-        <tbody>
-          <tr><td>Chapati with Curry</td><td>₹70</td></tr>
-          <tr><td>Veg Fried Rice</td><td>₹90</td></tr>
-          <tr><td>Dal Tadka</td><td>₹80</td></tr>
-          <tr><td>Mixed Veg Curry</td><td>₹100</td></tr>
-        </tbody>
-      </table>
-    </div>
+header {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 20px; /* more breathing room */
+  font-size: 24px;
+  letter-spacing: 0.5px;
+}
 
-    <!-- Snacks -->
-    <div id="snacks" class="menu card">
-      <h2>Snacks Menu</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
-        <tbody>
-          <tr><td>Samosa</td><td>₹20</td></tr>
-          <tr><td>Pakora</td><td>₹30</td></tr>
-          <tr><td>Vada Pav</td><td>₹25</td></tr>
-          <tr><td>Bhel Puri</td><td>₹35</td></tr>
-        </tbody>
-      </table>
-    </div>
+nav {
+  background: var(--nav);
+  display: flex;
+  flex-wrap: wrap;
+}
 
-    <!-- Beverages -->
-    <div id="beverages" class="menu card">
-      <h2>Beverages Menu</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
-        <tbody>
-          <tr><td>Masala Chai</td><td>₹15</td></tr>
-          <tr><td>Filter Coffee</td><td>₹20</td></tr>
-          <tr><td>Lassi</td><td>₹40</td></tr>
-          <tr><td>Fresh Lime Soda</td><td>₹30</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
-  <footer>123 Food Street, Bengaluru, Karnataka</footer>
+nav button {
+  flex: 1 1 50%;
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 14px;
+  cursor: pointer;
+  font-size: 16px;
+}
+nav button:hover { background: #ffffff22; }
 
-  <script>
-    function showMenu(id) {
-      document.querySelectorAll('.menu').forEach(m => m.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
-</body>
-</html>
+main {
+  max-width: 1000px; /* slightly wider */
+  margin: 24px auto;
+  padding: 0 16px 60px; /* extra bottom padding so footer doesn’t overlap */
+}
 
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px; /* more spacious */
+  margin-bottom: 20px; /* separation between cards */
+  box-shadow: 0 6px 16px #00000022;
+}
 
-<style>
-  :root {
-    --primary: #ff6f61;
-    --nav: #2f3e46;
-    --bg1: #fbc2eb;
-    --bg2: #a6c1ee;
-    --card: #ffffffee;
-    --text: #222;
-  }
-  body {
-    margin: 0; font-family: Arial, sans-serif; color: var(--text);
-    background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  }
-  header {
-    background: var(--primary); color: #fff; text-align: center;
-    padding: 16px; font-size: 22px; letter-spacing: 0.5px;
-  }
-  nav {
-    background: var(--nav); display: flex; flex-wrap: wrap;
-  }
-  nav button {
-    flex: 1 1 50%; /* two buttons per row on mobile */
-    background: none; border: none; color: #fff;
-    padding: 12px; cursor: pointer; font-size: 15px;
-  }
-  nav button:hover { background: #ffffff22; }
-  main {
-    max-width: 900px; margin: 16px auto; padding: 0 12px;
-  }
-  .card {
-    background: var(--card); border-radius: 10px; padding: 14px;
-    box-shadow: 0 4px 12px #00000022;
-  }
-  h2 { margin: 0 0 12px; font-size: 18px; color: #1f2937; }
-  table {
-    width: 100%; border-collapse: collapse; border-radius: 8px; overflow-x: auto;
-    display: block; /* allows horizontal scroll on small screens */
-  }
-  thead { background: #ffe0da; }
-  th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
-  tbody tr:hover { background: #f9fafb; }
-  footer {
-    background: var(--primary); color: #fff; text-align: center;
-    padding: 8px; font-size: 12px; position: fixed; bottom: 0; width: 100%;
-  }
-  .menu { display: none; }
-  .menu.active { display: block; }
+h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  color: #1f2937;
+}
 
-  /* Mobile adjustments */
-  @media (max-width: 600px) {
-    header { font-size: 20px; padding: 12px; }
-    nav button { flex: 1 1 100%; font-size: 14px; } /* stack buttons */
-    h2 { font-size: 16px; }
-    th, td { font-size: 13px; padding: 8px; }
-    .card { padding: 12px; }
-  }
-</style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+thead { background: #ffe0da; }
+th, td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+tbody tr:hover { background: #f9fafb; }
+
+footer {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.menu { display: none; }
+.menu.active { display: block; }
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  header { font-size: 20px; padding: 14px; }
+  nav button { flex: 1 1 100%; font-size: 14px; }
+  h2 { font-size: 16px; }
+  th, td { font-size: 13px; padding: 8px; }
+  .card { padding: 14px; }
+}
