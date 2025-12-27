@@ -215,15 +215,10 @@
 
     function showSection(id) {
       sections.forEach(sec => {
-        sec.classList.toggle("active", sec.id === id);
+        if (sec.id === id) {
+          sec.classList.add("active");
+        } else {
+          sec.classList.remove("active");
+        }
       });
     }
-
-    navLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        const id = link.getAttribute
-
-
-
-                            
