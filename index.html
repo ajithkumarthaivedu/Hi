@@ -16,7 +16,7 @@
     background: #d35400;
     color: white;
     text-align: center;
-    padding: 10px;
+    padding: 20px; /* increased height */
     z-index: 1000;
   }
   header { top: 0; }
@@ -26,7 +26,7 @@
     justify-content: space-around;
     background: #f39c12;
     position: fixed;
-    top: 50px; /* below header */
+    top: 70px; /* below header */
     left: 0; right: 0;
     z-index: 999;
   }
@@ -44,8 +44,8 @@
   .page {
     display: none;
     position: absolute;
-    top: 100px; /* below header+tabs */
-    bottom: 50px; /* above footer */
+    top: 120px; /* below header+tabs */
+    bottom: 70px; /* above footer */
     left: 0; right: 0;
     overflow-y: auto;
     padding: 10px;
@@ -64,15 +64,19 @@
   }
   .floating-icon {
     position: fixed;
-    bottom: 70px;
+    bottom: 90px;
     right: 20px;
-    background: #27ae60;
+    background: grey; /* default color */
     color: white;
     padding: 15px;
     border-radius: 50%;
     cursor: pointer;
     display: none;
     z-index: 1001;
+    transition: background 0.3s;
+  }
+  .floating-icon.active {
+    background: #27ae60; /* visible green when active */
   }
 </style>
 </head>
@@ -99,8 +103,27 @@
 </div>
 
 <div id="dinner" class="page">
+  <!-- 20 sample dinner items -->
   <div class="item">Chapati <span>₹40</span></div>
   <div class="item">Veg Curry <span>₹60</span></div>
+  <div class="item">Paneer Butter Masala <span>₹120</span></div>
+  <div class="item">Dal Fry <span>₹80</span></div>
+  <div class="item">Jeera Rice <span>₹70</span></div>
+  <div class="item">Veg Biryani <span>₹150</span></div>
+  <div class="item">Roti <span>₹20</span></div>
+  <div class="item">Mixed Veg Curry <span>₹90</span></div>
+  <div class="item">Aloo Gobi <span>₹85</span></div>
+  <div class="item">Chana Masala <span>₹95</span></div>
+  <div class="item">Veg Pulao <span>₹100</span></div>
+  <div class="item">Tomato Soup <span>₹60</span></div>
+  <div class="item">Veg Manchurian <span>₹110</span></div>
+  <div class="item">Naan <span>₹30</span></div>
+  <div class="item">Butter Naan <span>₹40</span></div>
+  <div class="item">Palak Paneer <span>₹130</span></div>
+  <div class="item">Mushroom Curry <span>₹120</span></div>
+  <div class="item">Veg Kofta <span>₹140</span></div>
+  <div class="item">Rice & Sambar <span>₹90</span></div>
+  <div class="item">Curd Rice <span>₹70</span></div>
 </div>
 
 <div id="snacks" class="page">
@@ -151,13 +174,19 @@
     const selectedItems = document.querySelectorAll('.item.selected');
     if (selectedItems.length > 0) {
       floatingIcon.style.display = 'block';
+      floatingIcon.classList.add('active');
       selectedItems.forEach(si => {
         const clone = si.cloneNode(true);
-        clone.classList.remove('selected');
+        clone.addEventListener('click', () => {
+          // unselect original item when tapped in selected list
+          si.classList.remove('selected');
+          updateSelected();
+        });
         selectedList.appendChild(clone);
       });
     } else {
       floatingIcon.style.display = 'none';
+      floatingIcon.classList.remove('active');
     }
   }
 
