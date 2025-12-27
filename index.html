@@ -1,101 +1,131 @@
-:root {
-  --primary: #ff6f61;
-  --nav: #2f3e46;
-  --bg1: #fbc2eb;
-  --bg2: #a6c1ee;
-  --card: #ffffffee;
-  --text: #222;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resternt</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      color: #333;
+    }
+    header {
+      background: #ff4e50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: #ff6f61;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      font-weight: bold;
+    }
+    section {
+      padding: 20px;
+    }
+    h2 {
+      color: #ff4e50;
+      border-bottom: 2px solid #ff6f61;
+      padding-bottom: 5px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #fff3e0;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    footer {
+      background: #ff4e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+      }
+      li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>🍴 Resternt 🍴</header>
+  <nav>
+    <a href="#tiffin">Tiffin</a>
+    <a href="#lunch">Lunch</a>
+    <a href="#dinner">Dinner</a>
+    <a href="#snacks">Snacks</a>
+    <a href="#beverages">Beverages</a>
+  </nav>
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: var(--text);
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  line-height: 1.6; /* improves readability */
-}
+  <section id="tiffin">
+    <h2>Tiffin</h2>
+    <ul>
+      <li><span>Idli (2 pcs)</span><span>₹30</span></li>
+      <li><span>Dosa</span><span>₹50</span></li>
+      <li><span>Poori</span><span>₹40</span></li>
+    </ul>
+  </section>
 
-header {
-  background: var(--primary);
-  color: #fff;
-  text-align: center;
-  padding: 20px; /* more breathing room */
-  font-size: 24px;
-  letter-spacing: 0.5px;
-}
+  <section id="lunch">
+    <h2>Lunch</h2>
+    <ul>
+      <li><span>Veg Thali</span><span>₹120</span></li>
+      <li><span>Chicken Curry with Rice</span><span>₹180</span></li>
+      <li><span>Paneer Butter Masala</span><span>₹150</span></li>
+    </ul>
+  </section>
 
-nav {
-  background: var(--nav);
-  display: flex;
-  flex-wrap: wrap;
-}
+  <section id="dinner">
+    <h2>Dinner</h2>
+    <ul>
+      <li><span>Roti with Dal</span><span>₹100</span></li>
+      <li><span>Fish Fry</span><span>₹200</span></li>
+      <li><span>Mutton Biryani</span><span>₹250</span></li>
+    </ul>
+  </section>
 
-nav button {
-  flex: 1 1 50%;
-  background: none;
-  border: none;
-  color: #fff;
-  padding: 14px;
-  cursor: pointer;
-  font-size: 16px;
-}
-nav button:hover { background: #ffffff22; }
+  <section id="snacks">
+    <h2>Snacks</h2>
+    <ul>
+      <li><span>Samosa</span><span>₹20</span></li>
+      <li><span>Pav Bhaji</span><span>₹70</span></li>
+      <li><span>French Fries</span><span>₹90</span></li>
+    </ul>
+  </section>
 
-main {
-  max-width: 1000px; /* slightly wider */
-  margin: 24px auto;
-  padding: 0 16px 60px; /* extra bottom padding so footer doesn’t overlap */
-}
+  <section id="beverages">
+    <h2>Beverages</h2>
+    <ul>
+      <li><span>Masala Chai</span><span>₹20</span></li>
+      <li><span>Cold Coffee</span><span>₹60</span></li>
+      <li><span>Lassi</span><span>₹50</span></li>
+    </ul>
+  </section>
 
-.card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 20px; /* more spacious */
-  margin-bottom: 20px; /* separation between cards */
-  box-shadow: 0 6px 16px #00000022;
-}
-
-h2 {
-  margin: 0 0 16px;
-  font-size: 20px;
-  color: #1f2937;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 8px;
-  overflow-x: auto;
-}
-
-thead { background: #ffe0da; }
-th, td {
-  padding: 12px 10px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
-}
-tbody tr:hover { background: #f9fafb; }
-
-footer {
-  background: var(--primary);
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  font-size: 13px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.menu { display: none; }
-.menu.active { display: block; }
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-  header { font-size: 20px; padding: 14px; }
-  nav button { flex: 1 1 100%; font-size: 14px; }
-  h2 { font-size: 16px; }
-  th, td { font-size: 13px; padding: 8px; }
-  .card { padding: 14px; }
-}
+  <footer>
+    📍 Address: 123 Food Street, Bengaluru<br>
+    ☎️ Phone: +91 98765 43210
+  </footer>
+</body>
+</html>
