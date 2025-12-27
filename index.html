@@ -1,121 +1,115 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Hi Message</title>
-    <style>
-        body {
-            background-color: #f0f8ff; /* Light blue background */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 60px;
-        }
-        h1 {
-            color: #ff4500; /* Orange-red color */
-            font-size: 50px;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #2e8b57; /* Sea green color */
-            font-size: 22px;
-            margin: 0 0 20px 0;
-        }
-        .symbols {
-            font-size: 40px;
-            margin-top: 15px;
-        }
-        .section {
-            display: inline-block;
-            text-align: left;
-            margin-top: 30px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            padding: 24px 28px;
-        }
-        .choices label {
-            display: block;
-            font-size: 18px;
-            margin: 8px 0;
-            cursor: pointer;
-        }
-        .btn {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 12px 26px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 16px;
-            transition: background-color 0.25s ease, transform 0.1s ease;
-        }
-        .btn:hover { background-color: #45a049; }
-        .btn:active { transform: scale(0.98); }
-
-        .result {
-            margin-top: 18px;
-            font-size: 18px;
-            color: #333;
-        }
-        .result .pill {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
-            border-radius: 999px;
-            padding: 6px 12px;
-            margin: 6px 6px 0 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajith's Tea & Snacks – Price List</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #fff8e7, #f7f3e9);
+        color: #333;
+    }
+    header {
+        text-align: center;
+        padding: 30px 15px;
+        background: #6b4f4f;
+        color: #fff;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 36px;
+    }
+    header p {
+        margin: 8px 0 0;
+        font-size: 16px;
+    }
+    .menu-section {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .menu-section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #6b4f4f;
+    }
+    .menu-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .item {
+        background: linear-gradient(135deg, #ffe5b4, #fff0d6);
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: #4a3b3b;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .item:nth-child(2) {
+        background: linear-gradient(135deg, #d4f1f4, #eaf9fb);
+    }
+    .item:nth-child(3) {
+        background: linear-gradient(135deg, #ffd6d6, #ffecec);
+    }
+    .item:nth-child(4) {
+        background: linear-gradient(135deg, #e6ffd6, #f4ffe9);
+    }
+    .price {
+        color: #1b8f5a;
+        font-size: 20px;
+    }
+    footer {
+        text-align: center;
+        padding: 15px;
+        background: #6b4f4f;
+        color: #fff;
+        margin-top: 30px;
+    }
+</style>
 </head>
 <body>
-    <h1>Hi 😊</h1>
-    <p>This is Ajith.<br>Thank You for your Help! 👍🎉</p>
-    <div class="symbols">✔ ✅ 🌟 💯 🚀</div>
 
-    <div class="section">
-        <h3 style="margin-top:0;color:#1e88e5;">Select options (multi-select):</h3>
-        <div class="choices">
-            <label><input type="checkbox" name="choice" value="A"> A</label>
-            <label><input type="checkbox" name="choice" value="B"> B</label>
-            <label><input type="checkbox" name="choice" value="C"> C</label>
+<header>
+    <h1>Ajith's Tea & Snacks</h1>
+    <p>Fresh, Tasty & Pocket-Friendly</p>
+</header>
+
+<section class="menu-section">
+    <h2>Today's Price List</h2>
+    <div class="menu-list">
+        <div class="item">
+            <span>Tea</span>
+            <span class="price">₹10</span>
         </div>
-
-        <button class="btn" id="collectBtn">Submit Selection</button>
-
-        <div class="result" id="resultArea" aria-live="polite">
-            <!-- Selected items will appear here -->
+        <div class="item">
+            <span>Coffee</span>
+            <span class="price">₹15</span>
+        </div>
+        <div class="item">
+            <span>Samosa</span>
+            <span class="price">₹15</span>
+        </div>
+        <div class="item">
+            <span>Puffs</span>
+            <span class="price">₹20</span>
         </div>
     </div>
+</section>
 
-    <script>
-        const button = document.getElementById('collectBtn');
-        const resultArea = document.getElementById('resultArea');
+<footer>
+    📍 Bengaluru-Roopena Agrahara • Open Daily 6:00 AM – 9:00 PM • Cash / UPI Accepted
+</footer>
 
-        button.addEventListener('click', () => {
-            // Get all checked checkboxes
-            const checked = Array.from(document.querySelectorAll('input[name="choice"]:checked'))
-                                 .map(cb => cb.value);
-
-            if (checked.length === 0) {
-                alert('Please select at least one option (A, B, or C).');
-                resultArea.innerHTML = '<em>No selections yet.</em>';
-                return;
-            }
-
-            // Show in alert
-            alert('You selected: ' + checked.join(', '));
-
-            // Render nicely on the page
-            resultArea.innerHTML = 'You selected: ' +
-                checked.map(v => `<span class="pill">${v}</span>`).join(' ');
-
-            // (Optional) Copy to clipboard
-            // navigator.clipboard.writeText(checked.join(', '))
-            //     .catch(() => console.warn('Clipboard not available.'));
-        });
-    </script>
 </body>
 </html>
