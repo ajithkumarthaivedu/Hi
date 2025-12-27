@@ -23,6 +23,7 @@
       color: var(--text);
       display: flex;
       flex-direction: column;
+      overflow: hidden; /* disable page scroll */
     }
 
     header {
@@ -62,7 +63,7 @@
 
     main {
       flex: 1;
-      overflow-y: auto;
+      overflow-y: auto; /* only menu scrolls */
       padding: 12px;
     }
 
@@ -113,6 +114,7 @@
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
       font-size: 15px;
+      line-height: normal; /* text sits at top line */
     }
   </style>
 </head>
@@ -219,12 +221,4 @@
       }
 
       navLinks.forEach(link => {
-        link.addEventListener("click", e => {
-          e.preventDefault();
-          const id = link.getAttribute("href").substring(1);
-          setActive(link);
-          showSection(id);
-        });
-      });
-    });
-  </script>
+        link.addEvent
