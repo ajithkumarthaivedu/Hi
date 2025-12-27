@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resternt</title>
+  <title>Velu Resternt</title>
   <style>
     body {
       margin: 0;
@@ -15,15 +15,21 @@
       background: #ff4e50;
       color: white;
       text-align: center;
-      padding: 20px;
-      font-size: 24px;
+      padding: 15px;
+      font-size: 22px;
       font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     nav {
       display: flex;
       justify-content: space-around;
       background: #ff6f61;
       flex-wrap: wrap;
+      position: sticky;
+      top: 55px; /* below header */
+      z-index: 999;
     }
     nav a {
       color: white;
@@ -32,39 +38,37 @@
       font-weight: bold;
     }
     section {
-      padding: 20px;
+      padding: 15px;
     }
     h2 {
       color: #ff4e50;
       border-bottom: 2px solid #ff6f61;
       padding-bottom: 5px;
+      margin-bottom: 10px;
     }
     ul {
       list-style: none;
       padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
     }
     li {
       background: #fff3e0;
-      margin: 8px 0;
       padding: 10px;
       border-radius: 8px;
       display: flex;
       justify-content: space-between;
+      font-size: 14px;
     }
     footer {
       background: #ff4e50;
       color: white;
       text-align: center;
       padding: 15px;
-    }
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-      }
-      li {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      position: sticky;
+      bottom: 0;
     }
   </style>
 </head>
