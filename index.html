@@ -97,7 +97,7 @@
       padding: 0;
       margin: 0;
       display: flex;
-      flex-direction: column;
+      flex-direction: column; /* single column */
       gap: 12px;
     }
 
@@ -114,9 +114,10 @@
       background: var(--brand-1);
       color: white;
       text-align: center;
-      padding: 28px 16px;
+      padding: 40px 16px; /* increased height */
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
+      font-size: 15px;
     }
   </style>
 </head>
@@ -225,3 +226,4 @@
           const id = link.getAttribute("href").slice(1);
           setActive(link);
           showSection(id);
+          history
