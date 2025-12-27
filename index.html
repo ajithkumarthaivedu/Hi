@@ -18,21 +18,21 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: var(--bg-1);
       color: var(--text);
       display: flex;
       flex-direction: column;
-      overflow: hidden; /* disable page scroll; only main scrolls */
+      overflow: hidden; /* disable page scroll */
     }
 
     header {
       background: var(--brand-1);
-      color: #fff;
+      color: white;
       text-align: center;
       padding: 16px;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: bold;
       flex-shrink: 0;
     }
 
@@ -46,10 +46,10 @@
     }
 
     nav a {
-      color: #fff;
+      color: white;
       text-decoration: none;
       padding: 10px 12px;
-      font-weight: 600;
+      font-weight: bold;
       border-radius: 8px;
       white-space: nowrap;
       transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
@@ -63,7 +63,7 @@
 
     main {
       flex: 1;
-      overflow-y: auto; /* only content scrolls */
+      overflow-y: auto; /* only menu scrolls */
       padding: 12px;
     }
 
@@ -73,7 +73,6 @@
       margin-bottom: 25px;
       background: rgba(255, 255, 255, 0.25);
       border-radius: 12px;
-      backdrop-filter: saturate(130%) blur(0px);
     }
 
     section.active {
@@ -108,20 +107,19 @@
 
     footer {
       background: var(--brand-1);
-      color: #fff;
+      color: white;
       text-align: center;
-      padding: 56px 16px; /* taller and clearly visible */
+      padding: 56px 16px; /* taller footer */
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
       font-size: 15px;
-      line-height: normal; /* text starts at first line */
+      line-height: normal; /* text sits at top line */
     }
   </style>
 </head>
 <body>
   <header>🍴 Sri Matha Restorent 🍴</header>
-
-  <nav aria-label="Menu categories" id="tabs">
+  <nav id="tabs">
     <a href="#tiffin" class="active">Tiffin</a>
     <a href="#lunch">Lunch</a>
     <a href="#dinner">Dinner</a>
@@ -204,38 +202,24 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const nav = document.getElementById("tabs");
-      const links = Array.from(nav.querySelectorAll("a"));
-      const sections = Array.from(document.querySelectorAll("main section"));
+      const navLinks = document.querySelectorAll("#tabs a");
+      const sections = document.querySelectorAll("main section");
 
       function activateTab(id) {
-        // Update links
-        links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
-        // Update sections
-        sections.forEach(sec => sec.classList.toggle("active", sec.id === id));
-        // Update URL hash without jumping
-        history.replaceState(null, "", "#" + id);
+        navLinks.forEach(link => {
+          link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+        });
+        sections.forEach(sec => {
+          sec.classList.toggle("active", sec.id === id);
+        });
       }
 
-      // Event delegation: reliable click handling
-      nav.addEventListener("click", (e) => {
-        const a = e.target.closest("a");
-        if (!a) return;
-        e.preventDefault();
-        const id = a.getAttribute("href").slice(1);
-        activateTab(id);
+      navLinks.forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+          const id = link.getAttribute("href").substring(1);
+          activateTab(id);
+        });
       });
 
-      // Handle initial load (hash or default)
-      const initialId = (location.hash || "#tiffin").slice(1);
-      activateTab(initialId);
-
-      // Handle back/forward navigation to keep sections in sync
-      window.addEventListener("popstate", () => {
-        const id = (location.hash || "#tiffin").slice(1);
-        activateTab(id);
-      });
-    });
-  </script>
-</body>
-</html>
+      // Initialize based on hash or default
