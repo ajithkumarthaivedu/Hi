@@ -19,12 +19,13 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
       background: var(--bg-1);
       color: var(--text);
       overflow: hidden; /* lock page scroll */
     }
 
+    /* Fixed header + nav (no jump, always visible) */
     .topbar {
       position: fixed;
       top: 0;
@@ -37,9 +38,9 @@
       background: var(--brand-1);
       color: #fff;
       text-align: center;
-      padding: 56px 16px;   /* taller header */
-      font-size: 22px;
-      font-weight: bold;
+      padding: 14px 16px;
+      font-size: 20px;
+      font-weight: 700;
       border-bottom: 1px solid rgba(255,255,255,0.25);
     }
 
@@ -69,12 +70,15 @@
       transform: scale(1.05);
     }
 
+    /* Content area scrolls only */
     main {
       position: absolute;
-      top: 120px;   /* header + nav combined height */
+      top: calc(14px + 16px + 8px + 40px); /* header + its padding + nav padding + approx tab height */
+      /* To be safer across devices, give a fixed content top offset based on actual header+nav height */
+      top: 120px;
       left: 0;
       right: 0;
-      bottom: 60px; /* space for shorter footer */
+      bottom: 140px; /* leave space for footer */
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 12px;
@@ -117,6 +121,7 @@
       font-size: 15px;
     }
 
+    /* Footer fixed, taller, text at first line */
     footer {
       position: fixed;
       left: 0;
@@ -125,7 +130,7 @@
       background: var(--brand-1);
       color: #fff;
       text-align: center;
-      padding: 14px 16px;   /* shorter footer */
+      padding: 56px 16px;
       border-top: 2px solid var(--brand-2);
       font-size: 15px;
       line-height: normal;
@@ -136,7 +141,7 @@
 <body>
   <div class="topbar">
     <header>🍴 Sri Matha Restorent 🍴</header>
-    <nav id="tabs">
+    <nav id="tabs" aria-label="Menu categories">
       <a href="#tiffin" class="active">Tiffin</a>
       <a href="#lunch">Lunch</a>
       <a href="#dinner">Dinner</a>
@@ -224,4 +229,37 @@
       const links = Array.from(nav.querySelectorAll("a"));
       const sections = Array.from(document.querySelectorAll("main section"));
 
-      function activate
+      function activate(id) {
+        // Default to tiffin if id missing
+        const valid = sections.some(s => s.id === id);
+        const targetId = valid ? id : "tiffin";
+
+        links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + targetId));
+        sections.forEach(sec => sec.classList.toggle("active", sec.id === targetId));
+      }
+
+      function currentId() {
+        return (location.hash || "#tiffin").slice(1);
+      }
+
+      // Robust click handling (no jump, no scroll change)
+      nav.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (!a) return;
+        e.preventDefault();
+        const id = a.getAttribute("href").slice(1);
+        activate(id);
+        // Update URL without causing anchor jump
+        history.replaceState(null, "", "#" + id);
+      });
+
+      // Sync with back/forward/hash change
+      window.addEventListener("hashchange", () => activate(currentId()));
+      window.addEventListener("popstate", () => activate(currentId()));
+
+      // Force initial activation — items visible immediately
+      activate(currentId());
+    });
+  </script>
+</body>
+</html>
