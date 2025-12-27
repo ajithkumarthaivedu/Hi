@@ -52,7 +52,6 @@
     left: 0; right: 0;
     overflow-y: auto;
     padding: 10px;
-    background: #fdfdfd;
   }
   .page.active { display: block; }
   .item {
@@ -66,25 +65,35 @@
   .item.selected {
     background: #d1f2eb;
   }
+  /* Floating cart icon */
   .floating-icon {
     position: fixed;
     bottom: 110px;
     right: 20px;
-    background: grey; /* default color */
-    color: white;
+    background: transparent; /* transparent fill */
+    border: 3px solid blue;  /* border color */
+    color: blue;
     font-size: 30px;   /* bigger size */
     padding: 20px;     /* larger circle */
     border-radius: 50%;
     cursor: pointer;
     display: none;
     z-index: 1001;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* visible shadow */
+    transition: border-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
   .floating-icon.active {
-    background: #27ae60; /* bright green when active */
-    transform: scale(1.1); /* slight pop effect */
+    border-color: green; /* border turns green when active */
+    color: green;
+    transform: scale(1.1);
   }
+  /* Colorful backgrounds for pages */
+  #tiffin { background: #fff3e0; }      /* light orange */
+  #lunch { background: #e0f7fa; }       /* light cyan */
+  #dinner { background: #fce4ec; }      /* light pink */
+  #snacks { background: #f3e5f5; }      /* light purple */
+  #beverages { background: #e8f5e9; }   /* light green */
+  #selected { background: #ede7f6; }    /* light indigo */
 </style>
 </head>
 <body>
