@@ -1,150 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Resternt</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffecd2, #fcb69f);
-      color: #333;
+    :root{
+      --brand-1:#ff4e50;
+      --brand-2:#ff6f61;
+      --bg-1:linear-gradient(135deg,#ffecd2,#fcb69f);
+      --card:#fff3e0;
+      --text:#333;
     }
-    header {
-      background: #ff4e50;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 22px;
-      font-weight: bold;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+
+    /* Base */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+      background:var(--bg-1);
+      color:var(--text);
     }
-    nav {
-      display: flex;
-      justify-content: space-around;
-      background: #ff6f61;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 55px;
-      z-index: 999;
+
+    /* Header + Nav (sticky) */
+    header{
+      background:var(--brand-1);
+      color:#fff;
+      text-align:center;
+      padding:14px 12px;
+      font-size:22px;
+      font-weight:700;
+      position:sticky;
+      top:0;
+      z-index:1000;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 10px;
-      font-weight: bold;
-      transition: background 0.3s, transform 0.3s;
+    nav{
+      display:flex;
+      gap:8px;
+      justify-content:space-between;
+      background:var(--brand-2);
+      padding:8px;
+      position:sticky;
+      top:50px;
+      z-index:999;
+      overflow-x:auto;
     }
-    nav a.active {
-      background: #ffecd2;
-      color: #ff4e50;
-      border-radius: 5px;
-      transform: scale(1.1);
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      padding:10px 12px;
+      font-weight:700;
+      border-radius:8px;
+      white-space:nowrap;
+      transition:background .25s ease, transform .25s ease, color .25s ease;
+      will-change:transform;
     }
-    section {
-      padding: 15px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+    nav a.active{
+      background:#ffecd2;
+      color:var(--brand-1);
+      transform:scale(1.06);
     }
-    section.active {
-      opacity: 1;
-      transform: translateY(0);
+
+    /* Sections: animated show/hide */
+    main{
+      padding:12px;
     }
-    h2 {
-      color: #ff4e50;
-      border-bottom: 2px solid #ff6f61;
-      padding-bottom: 5px;
-      margin-bottom: 10px;
+    section{
+      padding:12px;
+      background:rgba(255,255,255,.25);
+      border-radius:12px;
+      backdrop-filter:saturate(130%) blur(0px);
+      margin-bottom:14px;
+
+      /* Hidden state */
+      display:none;
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity .35s ease, transform .35s ease;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 10px;
+    section.active{
+      display:block;
+      opacity:1;
+      transform:translateY(0);
     }
-    li {
-      background: #fff3e0;
-      padding: 10px;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
+
+    /* Section header */
+    h2{
+      margin:0 0 10px 0;
+      color:var(--brand-1);
+      border-bottom:2px solid var(--brand-2);
+      padding-bottom:6px;
+      font-size:18px;
     }
-    footer {
-      background: #ff4e50;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      position: sticky;
-      bottom: 0;
+
+    /* Items grid (2–3 columns responsive) */
+    ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+    }
+    li{
+      background:var(--card);
+      padding:10px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:14px;
+      box-shadow:0 1px 0 rgba(0,0,0,.04);
+    }
+
+    /* Footer */
+    footer{
+      background:var(--brand-1);
+      color:#fff;
+      text-align:center;
+      padding:14px 12px;
+      position:sticky;
+      bottom:0;
+    }
+
+    /* Reduced motion respect */
+    @media (prefers-reduced-motion: reduce){
+      nav a{transition:none}
+      section{transition:none}
     }
   </style>
 </head>
 <body>
   <header>🍴 Resternt 🍴</header>
-  <nav>
-    <a href="#tiffin">Tiffin</a>
+  <nav aria-label="Menu sections">
+    <a href="#tiffin" class="active" aria-selected="true">Tiffin</a>
     <a href="#lunch">Lunch</a>
     <a href="#dinner">Dinner</a>
     <a href="#snacks">Snacks</a>
     <a href="#beverages">Beverages</a>
   </nav>
 
-  <section id="tiffin" class="active">
-    <h2>Tiffin</h2>
-    <ul>
-      <li><span>Idli (2 pcs)</span><span>₹30</span></li>
-      <li><span>Dosa</span><span>₹50</span></li>
-      <li><span>Poori</span><span>₹40</span></li>
-      <li><span>Upma</span><span>₹45</span></li>
-    </ul>
-  </section>
+  <main>
+    <section id="tiffin" class="active" aria-hidden="false">
+      <h2>Tiffin</h2>
+      <ul>
+        <li><span>Idli (2 pcs)</span><span>₹30</span></li>
+        <li><span>Dosa</span><span>₹50</span></li>
+        <li><span>Poori</span><span>₹40</span></li>
+        <li><span>Upma</span><span>₹45</span></li>
+      </ul>
+    </section>
 
-  <section id="lunch">
-    <h2>Lunch</h2>
-    <ul>
-      <li><span>Veg Thali</span><span>₹120</span></li>
-      <li><span>Chicken Curry with Rice</span><span>₹180</span></li>
-      <li><span>Paneer Butter Masala</span><span>₹150</span></li>
-      <li><span>Curd Rice</span><span>₹90</span></li>
-    </ul>
-  </section>
+    <section id="lunch" aria-hidden="true">
+      <h2>Lunch</h2>
+      <ul>
+        <li><span>Veg Thali</span><span>₹120</span></li>
+        <li><span>Chicken Curry with Rice</span><span>₹180</span></li>
+        <li><span>Paneer Butter Masala</span><span>₹150</span></li>
+        <li><span>Curd Rice</span><span>₹90</span></li>
+      </ul>
+    </section>
 
-  <section id="dinner">
-    <h2>Dinner</h2>
-    <ul>
-      <li><span>Roti with Dal</span><span>₹100</span></li>
-      <li><span>Fish Fry</span><span>₹200</span></li>
-      <li><span>Mutton Biryani</span><span>₹250</span></li>
-      <li><span>Veg Pulao</span><span>₹130</span></li>
-    </ul>
-  </section>
+    <section id="dinner" aria-hidden="true">
+      <h2>Dinner</h2>
+      <ul>
+        <li><span>Roti with Dal</span><span>₹100</span></li>
+        <li><span>Fish Fry</span><span>₹200</span></li>
+        <li><span>Mutton Biryani</span><span>₹250</span></li>
+        <li><span>Veg Pulao</span><span>₹130</span></li>
+      </ul>
+    </section>
 
-  <section id="snacks">
-    <h2>Snacks</h2>
-    <ul>
-      <li><span>Samosa</span><span>₹20</span></li>
-      <li><span>Pav Bhaji</span><span>₹70</span></li>
-      <li><span>French Fries</span><span>₹90</span></li>
-      <li><span>Pakora</span><span>₹50</span></li>
-    </ul>
-  </section>
+    <section id="snacks" aria-hidden="true">
+      <h2>Snacks</h2>
+      <ul>
+        <li><span>Samosa</span><span>₹20</span></li>
+        <li><span>Pav Bhaji</span><span>₹70</span></li>
+        <li><span>French Fries</span><span>₹90</span></li>
+        <li><span>Pakora</span><span>₹50</span></li>
+      </ul>
+    </section>
 
-  <section id="beverages">
-    <h2>Beverages</h2>
-    <ul>
-      <li><span>Masala Chai</span><span>₹20</span></li>
-      <li><span>Cold Coffee</span><span>₹60</span></li>
-      <li><span>Lassi</span><span>₹50</span></li>
-      <li><span>Fresh Lime Soda</span><span>₹40</span></li>
-    </ul>
-  </section>
+    <section id="beverages" aria-hidden="true">
+      <h2>Beverages</h2>
+      <ul>
+        <li><span>Masala Chai</span><span>₹20</span></li>
+        <li><span>Cold Coffee</span><span>₹60</span></li>
+        <li><span>Lassi</span><span>₹50</span></li>
+        <li><span>Fresh Lime Soda</span><span>₹40</span></li>
+      </ul>
+    </section>
+  </main>
 
   <footer>
     📍 Address: 123 Food Street, Bengaluru<br>
@@ -152,26 +199,53 @@
   </footer>
 
   <script>
-    const navLinks = document.querySelectorAll("nav a");
-    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('main section');
 
-    navLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        // remove active from all links
-        navLinks.forEach(l => l.classList.remove("active"));
-        // add active to clicked link
-        link.classList.add("active");
-
-        // hide all sections
-        sections.forEach(sec => sec.classList.remove("active"));
-        // show selected section
-        const target = document.querySelector(link.getAttribute("href"));
-        target.classList.add("active");
-
-        // smooth scroll
-        target.scrollIntoView({ behavior: "smooth" });
+    function setActiveLink(link){
+      navLinks.forEach(l=>{
+        l.classList.remove('active');
+        l.setAttribute('aria-selected','false');
       });
+      link.classList.add('active');
+      link.setAttribute('aria-selected','true');
+    }
+
+    function showSection(id){
+      sections.forEach(sec=>{
+        const isTarget = sec.id === id;
+        // Toggle classes for animation
+        sec.classList.toggle('active', isTarget);
+        // Accessibility state
+        sec.setAttribute('aria-hidden', isTarget ? 'false' : 'true');
+      });
+    }
+
+    // Handle clicks without jump
+    navLinks.forEach(link=>{
+      link.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = link.getAttribute('href').slice(1);
+
+        setActiveLink(link);
+        showSection(id);
+
+        // Optional: focus section title to hint change
+        const targetHeading = document.querySelector(`#${id} h2`);
+        if (targetHeading) targetHeading.focus?.();
+      });
+    });
+
+    // If user lands with a hash, show matching section
+    window.addEventListener('DOMContentLoaded', ()=>{
+      const hash = location.hash?.slice(1);
+      if(hash){
+        const link = document.querySelector(`nav a[href="#${hash}"]`);
+        if(link){
+          setActiveLink(link);
+          showSection(hash);
+        }
+      }
     });
   </script>
 </body>
