@@ -1,3 +1,4 @@
+<!-- FULL HTML CODE STARTS -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +10,20 @@
     header, footer { position:fixed; left:0; right:0; background:#f8f8f8; text-align:center; z-index:1000; }
     header { top:0; padding:10px; font-weight:bold; font-size:18px; border-bottom:1px solid #ddd; }
     footer { bottom:0; padding:8px; font-size:14px; border-top:1px solid #ddd; }
-    .topbar { position:fixed; top:46px; left:0; right:0; background:#fff; border-bottom:1px solid #eee; }
+    .topbar { position:fixed; top:46px; left:0; right:0; background:#fff; border-bottom:1px solid #eee; z-index:1000; }
     .tabs { display:flex; overflow-x:auto; }
     .tab { flex:1; min-width:80px; padding:8px; text-align:center; cursor:pointer; border:1px solid #ddd; }
     .tab.active { background:#ffe0b2; font-weight:bold; }
-    .page-title { padding:6px; font-weight:bold; }
-    .content { position:absolute; top:86px; bottom:42px; left:0; right:0; overflow-y:auto; }
-    .item { display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; cursor:pointer; }
+    .page-title { padding:6px; font-weight:bold; display:flex; justify-content:space-between; align-items:center; }
+    .content { position:absolute; top:86px; bottom:42px; left:0; right:0; overflow-y:auto; padding-bottom:10px; }
+    .item { display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; cursor:pointer; flex-wrap:wrap; }
     .item.selected { background:#d0f8ce; border-left:4px solid #2F66FF; }
     .floating-cart { position:fixed; bottom:64px; right:18px; width:52px; height:52px; border:2px solid #2F66FF; border-radius:50%; background:transparent; display:flex; align-items:center; justify-content:center; font-size:24px; color:#2F66FF; cursor:pointer; }
     .hidden { display:none; }
-    .total { font-weight:bold; padding:10px; border-bottom:1px solid #eee; }
-    .qty input { width:40px; text-align:center; }
+    .total { font-weight:bold; padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
+    .qty { display:flex; align-items:center; gap:6px; margin-top:6px; }
+    .qty button { width:28px; height:28px; font-size:18px; border:1px solid #ccc; background:#fff; border-radius:4px; cursor:pointer; }
+    .qty input { width:40px; text-align:center; border:1px solid #ccc; border-radius:4px; }
   </style>
 </head>
 <body>
@@ -73,7 +76,7 @@
     function showPage(page){
       currentPage=page;
       document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.page===page));
-      pageTitle.textContent=page==="Selected"?"Selected Items":page;
+      pageTitle.textContent=page==="Selected"?"Selected Items":"Sri Matha Restorent";
       cartBtn.classList.toggle("hidden",!Object.keys(selectedItems).length||page==="Selected");
       content.innerHTML="";
       if(page==="Selected"){renderSelected();return;}
@@ -95,20 +98,26 @@
       let total=0;
       const totalDiv=document.createElement("div");
       totalDiv.className="total";
+      totalDiv.innerHTML=`<span>Selected Items</span><span id="totalAmount">Total: ₹0</span>`;
       content.appendChild(totalDiv);
+
       Object.values(selectedItems).forEach(item=>{
         total+=item.price*item.qty;
         const row=document.createElement("div");
         row.className="item selected";
-        row.innerHTML=`<div>${item.name} — ₹${item.price}</div>
-          <div>₹${item.price*item.qty}
-            <span class="qty"><input type="number" min="1" value="${item.qty}" /></span>
-          </div>`;
-        row.querySelector("input").oninput=(e)=>updateQty(item.name,e.target.value);
-        row.onclick=(e)=>{if(e.target.tagName!=="INPUT") toggleItem(item.name,item.price);};
+        row.innerHTML=`<div>${item.name} — ₹${item.price}
+          <div class="qty">
+            <button onclick="changeQty('${item.name}', -1)">−</button>
+            <input type="number" min="1" value="${item.qty}" onchange="updateQty('${item.name}', this.value)" />
+            <button onclick="changeQty('${item.name}', 1)">+</button>
+          </div>
+        </div>
+        <div>₹${item.price * item.qty}</div>`;
+        row.onclick=(e)=>{if(e.target.tagName!=="INPUT"&&e.target.tagName!=="BUTTON") toggleItem(item.name,item.price);};
         content.appendChild(row);
       });
-      totalDiv.textContent="Total: ₹"+total;
+
+      document.getElementById("totalAmount").textContent = "Total: ₹" + total;
     }
 
     function toggleItem(name,price){
@@ -116,11 +125,23 @@
       else selectedItems[name]={name,price,qty:1};
       showPage(currentPage);
     }
+
     function updateQty(name,qty){
-      if(selectedItems[name]){selectedItems[name].qty=parseInt(qty)||1;showPage("Selected");}
+      if(selectedItems[name]){
+        selectedItems[name].qty=Math.max(1,parseInt(qty)||1);
+        renderSelected();
+      }
+    }
+
+    function changeQty(name,delta){
+      if(selectedItems[name]){
+        selectedItems[name].qty=Math.max(1,selectedItems[name].qty+delta);
+        renderSelected();
+      }
     }
 
     showPage("Tiffin");
   </script>
 </body>
 </html>
+<!-- FULL HTML CODE ENDS -->
