@@ -17,11 +17,11 @@
   .tab{flex:1; padding:12px; text-align:center; cursor:pointer; font-size:16px;}
   .tab.active{background:#e67e22; font-weight:bold; color:#fff;}
   .page{display:none; position:absolute; top:120px; bottom:90px;
-    left:0; right:0; overflow-y:auto; padding:10px; background:#fdf6e3;} /* mild beige */
+    left:0; right:0; overflow-y:auto; padding:10px; background:#fdf6e3;}
   .page.active{display:block;}
-  .item{display:flex; justify-content:space-between; padding:10px;
+  .menu-item{display:flex; justify-content:space-between; padding:10px;
     border-bottom:1px solid #ddd; cursor:pointer; font-size:16px;}
-  .item.selected{background:#d1f2eb;}
+  .menu-item.selected{background:#d1f2eb;}
   .floating-icon{
     position:fixed; bottom:110px; right:20px;
     background:transparent; border:3px solid blue; color:blue;
@@ -49,46 +49,46 @@
 </div>
 
 <div id="tiffin" class="page active">
-  <div class="item">Idli <span>₹30</span></div>
-  <div class="item">Dosa <span>₹40</span></div>
+  <div class="menu-item">Idli <span>₹30</span></div>
+  <div class="menu-item">Dosa <span>₹40</span></div>
 </div>
 
 <div id="lunch" class="page">
-  <div class="item">Meals <span>₹80</span></div>
-  <div class="item">Curd Rice <span>₹50</span></div>
+  <div class="menu-item">Meals <span>₹80</span></div>
+  <div class="menu-item">Curd Rice <span>₹50</span></div>
 </div>
 
 <div id="dinner" class="page">
-  <div class="item">Chapati <span>₹40</span></div>
-  <div class="item">Veg Curry <span>₹60</span></div>
-  <div class="item">Paneer Butter Masala <span>₹120</span></div>
-  <div class="item">Dal Fry <span>₹80</span></div>
-  <div class="item">Jeera Rice <span>₹70</span></div>
-  <div class="item">Veg Biryani <span>₹150</span></div>
-  <div class="item">Roti <span>₹20</span></div>
-  <div class="item">Mixed Veg Curry <span>₹90</span></div>
-  <div class="item">Aloo Gobi <span>₹85</span></div>
-  <div class="item">Chana Masala <span>₹95</span></div>
-  <div class="item">Veg Pulao <span>₹100</span></div>
-  <div class="item">Tomato Soup <span>₹60</span></div>
-  <div class="item">Veg Manchurian <span>₹110</span></div>
-  <div class="item">Naan <span>₹30</span></div>
-  <div class="item">Butter Naan <span>₹40</span></div>
-  <div class="item">Palak Paneer <span>₹130</span></div>
-  <div class="item">Mushroom Curry <span>₹120</span></div>
-  <div class="item">Veg Kofta <span>₹140</span></div>
-  <div class="item">Rice & Sambar <span>₹90</span></div>
-  <div class="item">Curd Rice <span>₹70</span></div>
+  <div class="menu-item">Chapati <span>₹40</span></div>
+  <div class="menu-item">Veg Curry <span>₹60</span></div>
+  <div class="menu-item">Paneer Butter Masala <span>₹120</span></div>
+  <div class="menu-item">Dal Fry <span>₹80</span></div>
+  <div class="menu-item">Jeera Rice <span>₹70</span></div>
+  <div class="menu-item">Veg Biryani <span>₹150</span></div>
+  <div class="menu-item">Roti <span>₹20</span></div>
+  <div class="menu-item">Mixed Veg Curry <span>₹90</span></div>
+  <div class="menu-item">Aloo Gobi <span>₹85</span></div>
+  <div class="menu-item">Chana Masala <span>₹95</span></div>
+  <div class="menu-item">Veg Pulao <span>₹100</span></div>
+  <div class="menu-item">Tomato Soup <span>₹60</span></div>
+  <div class="menu-item">Veg Manchurian <span>₹110</span></div>
+  <div class="menu-item">Naan <span>₹30</span></div>
+  <div class="menu-item">Butter Naan <span>₹40</span></div>
+  <div class="menu-item">Palak Paneer <span>₹130</span></div>
+  <div class="menu-item">Mushroom Curry <span>₹120</span></div>
+  <div class="menu-item">Veg Kofta <span>₹140</span></div>
+  <div class="menu-item">Rice & Sambar <span>₹90</span></div>
+  <div class="menu-item">Curd Rice <span>₹70</span></div>
 </div>
 
 <div id="snacks" class="page">
-  <div class="item">Samosa <span>₹20</span></div>
-  <div class="item">Pakora <span>₹25</span></div>
+  <div class="menu-item">Samosa <span>₹20</span></div>
+  <div class="menu-item">Pakora <span>₹25</span></div>
 </div>
 
 <div id="beverages" class="page">
-  <div class="item">Tea <span>₹15</span></div>
-  <div class="item">Coffee <span>₹20</span></div>
+  <div class="menu-item">Tea <span>₹15</span></div>
+  <div class="menu-item">Coffee <span>₹20</span></div>
 </div>
 
 <div id="selected" class="page">
@@ -104,13 +104,14 @@
 <script>
   const tabs=document.querySelectorAll('.tab');
   const pages=document.querySelectorAll('.page');
-  const items=document.querySelectorAll('.item');
+  const menuItems=document.querySelectorAll('.menu-item');
   const selectedPage=document.getElementById('selected');
   const selectedList=document.getElementById('selected-list');
   const floatingIcon=document.getElementById('floating-icon');
   const totalDisplay=document.getElementById('total');
   let cart={};
 
+  // Tab switching
   tabs.forEach(tab=>{
     tab.addEventListener('click',()=>{
       tabs.forEach(t=>t.classList.remove('active'));
@@ -120,7 +121,8 @@
     });
   });
 
-  items.forEach(item=>{
+  // Item selection
+  menuItems.forEach(item=>{
     item.addEventListener('click',()=>{
       const name=item.childNodes[0].textContent.trim();
       const price=parseInt(item.querySelector('span').textContent.replace('₹',''));
@@ -130,6 +132,7 @@
     });
   });
 
+  // Update selected list
   function updateSelected(){
     selectedList.innerHTML='';
     let total=0;
@@ -140,7 +143,7 @@
       entries.forEach(([name,data])=>{
         total+=data.price*data.qty;
         const row=document.createElement('div');
-        row.className='item';
+        row.className='menu-item';
         row.innerHTML=`
           <span>${name} (₹${data.price})</span>
           <div class="qty-controls">
@@ -154,7 +157,7 @@
           if(data.qty>1){data.qty--; }
           else {
             delete cart[name];
-            document.querySelectorAll('.item').forEach(i=>{
+            document.querySelectorAll('.menu-item').forEach(i=>{
               if(i.textContent.includes(name)) i.classList.remove('selected');
             });
           }
@@ -170,4 +173,10 @@
     } else {
       floatingIcon.style.display='none';
       floatingIcon.classList.remove('active');
-      totalDisplay
+      totalDisplay.textContent='Total: ₹0';
+    }
+  }
+
+  // Cart icon click → show selected items page
+  floatingIcon.addEventListener('click',()=>{
+    tabs.forEach(t=>t.classList.remove
