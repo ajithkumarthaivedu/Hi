@@ -5,108 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sri Matha Restorent</title>
   <style>
-    /* Reset and base */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; font-family: system-ui, Arial, sans-serif; color: #222; background: #fff; }
-
-    /* Fixed header & footer */
-    header, footer {
-      position: fixed; left: 0; right: 0; background: #f8f8f8; z-index: 1000;
-      text-align: center;
-    }
-    header { top: 0; padding: 10px 12px; font-weight: 700; font-size: 18px; border-bottom: 1px solid #e5e5e5; }
-    footer { bottom: 0; padding: 8px 12px; font-size: 14px; border-top: 1px solid #e5e5e5; }
-
-    /* Fixed topbar: tabs + current page name */
-    .topbar {
-      position: fixed; top: 46px; left: 0; right: 0; background: #ffffff; z-index: 1000;
-      border-bottom: 1px solid #eee;
-    }
-    .tabs {
-      display: flex; gap: 6px; padding: 8px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-    }
-    .tab {
-      flex: 1; min-width: 88px; text-align: center; padding: 10px 8px; cursor: pointer;
-      border: 1px solid #ddd; border-radius: 10px; font-size: 14px; background: #fafafa; color: #333;
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-    .tab.active {
-      background: linear-gradient(135deg, #ffecd2, #fcb69f);
-      border-color: #f57c00;
-      color: #bf360c;
-      font-weight: 800;
-    }
-    .page-title {
-      padding: 8px 12px; font-size: 15px; font-weight: 700; color: #444;
-    }
-
-    /* Content area (scrolls inside only) */
-    .content {
-      position: absolute; left: 0; right: 0;
-      top: 46px; /* header height */
-    }
-    .content-inner {
-      position: absolute; left: 0; right: 0;
-      top: 86px; /* topbar total height (tabs + title) */
-      bottom: 42px; /* footer height */
-      padding: 8px 10px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      background: #fff;
-    }
-
-    /* Category color backgrounds for quick visual distinction */
-    .category-tiffin .item:nth-child(odd) { background: #f0fff4; }   /* light green tint */
-    .category-tiffin .item:nth-child(even){ background: #e8fff0; }
-    .category-lunch .item:nth-child(odd)  { background: #f0f7ff; }   /* light blue tint */
-    .category-lunch .item:nth-child(even) { background: #e8f2ff; }
-    .category-dinner .item:nth-child(odd) { background: #fff6f0; }   /* light orange tint */
-    .category-dinner .item:nth-child(even){ background: #ffefe3; }
-    .category-snacks .item:nth-child(odd) { background: #fff0f7; }   /* light pink tint */
-    .category-snacks .item:nth-child(even){ background: #ffe8f2; }
-    .category-beverages .item:nth-child(odd){background: #f7fff0; }  /* light lime tint */
-    .category-beverages .item:nth-child(even){background:#f2ffe8; }
-
-    /* Item rows */
-    .item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 10px; border-bottom: 1px solid #eee; cursor: pointer;
-    }
-    .item-name { font-size: 15px; }
-    .item-price { font-weight: 700; color: #333; }
-
-    /* Selected state */
-    .item.selected { background: #dff6e6 !important; border-left: 4px solid #2F66FF; }
-
-    /* Floating cart icon (outline color, transparent fill) */
-    .floating-cart {
-      position: fixed; bottom: 64px; right: 18px; width: 52px; height: 52px;
-      border: 2px solid #2F66FF; border-radius: 50%; background: transparent;
-      display: flex; align-items: center; justify-content: center; font-size: 24px;
-      color: #2F66FF; cursor: pointer; z-index: 1100; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .hidden { display: none; }
-
-    /* Selected items page */
-    .total {
-      position: sticky; top: 0; background: #fff; padding: 10px 10px; border-bottom: 1px solid #eee;
-      font-weight: 800; font-size: 16px;
-    }
-    .qty {
-      display: inline-flex; align-items: center; gap: 8px; margin-left: 8px;
-    }
-    .qty input {
-      width: 52px; height: 30px; font-size: 14px; text-align: center;
-      border: 1px solid #ccc; border-radius: 6px;
-    }
-    .muted {
-      color: #666; font-size: 13px; padding: 10px;
-    }
+    body, html { margin:0; padding:0; height:100%; font-family:Arial; overflow:hidden; }
+    header, footer { position:fixed; left:0; right:0; background:#f8f8f8; text-align:center; z-index:1000; }
+    header { top:0; padding:10px; font-weight:bold; font-size:18px; border-bottom:1px solid #ddd; }
+    footer { bottom:0; padding:8px; font-size:14px; border-top:1px solid #ddd; }
+    .topbar { position:fixed; top:46px; left:0; right:0; background:#fff; border-bottom:1px solid #eee; }
+    .tabs { display:flex; overflow-x:auto; }
+    .tab { flex:1; min-width:80px; padding:8px; text-align:center; cursor:pointer; border:1px solid #ddd; }
+    .tab.active { background:#ffe0b2; font-weight:bold; }
+    .page-title { padding:6px; font-weight:bold; }
+    .content { position:absolute; top:86px; bottom:42px; left:0; right:0; overflow-y:auto; }
+    .item { display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; cursor:pointer; }
+    .item.selected { background:#d0f8ce; border-left:4px solid #2F66FF; }
+    .floating-cart { position:fixed; bottom:64px; right:18px; width:52px; height:52px; border:2px solid #2F66FF; border-radius:50%; background:transparent; display:flex; align-items:center; justify-content:center; font-size:24px; color:#2F66FF; cursor:pointer; }
+    .hidden { display:none; }
+    .total { font-weight:bold; padding:10px; border-bottom:1px solid #eee; }
+    .qty input { width:40px; text-align:center; }
   </style>
 </head>
 <body>
   <header>Sri Matha Restorent</header>
-
   <div class="topbar">
     <div class="tabs" id="tabs">
       <div class="tab active" data-page="Tiffin">Tiffin</div>
@@ -117,256 +35,91 @@
     </div>
     <div class="page-title" id="pageTitle">Tiffin</div>
   </div>
-
-  <div class="content">
-    <div class="content-inner" id="content"></div>
-  </div>
-
-  <!-- Floating cart icon -->
-  <div class="floating-cart hidden" id="cartBtn" title="Selected items">
-    🛒
-  </div>
-
+  <div class="content" id="content"></div>
+  <div class="floating-cart hidden" id="cartBtn">🛒</div>
   <footer>123 Sample Street, Bengaluru, Karnataka</footer>
 
   <script>
-    // Menu data
     const menu = {
-      Tiffin: [
-        { name: "Idli", price: 30 },
-        { name: "Dosa", price: 40 },
-        { name: "Vada", price: 25 },
-        { name: "Upma", price: 35 },
-        { name: "Pongal", price: 50 },
-        { name: "Masala Dosa", price: 55 },
+      Tiffin:[{name:"Idli",price:30},{name:"Dosa",price:40}],
+      Lunch:[{name:"Veg Meals",price:80},{name:"Chicken Curry",price:120}],
+      Dinner:[
+        {name:"Chapati",price:20},{name:"Paratha",price:25},{name:"Paneer Butter Masala",price:120},
+        {name:"Dal Fry",price:70},{name:"Veg Biryani",price:150},{name:"Chicken Biryani",price:180},
+        {name:"Mutton Curry",price:220},{name:"Fish Fry",price:160},{name:"Egg Curry",price:90},
+        {name:"Veg Kurma",price:100},{name:"Gobi Manchurian",price:110},{name:"Paneer Tikka",price:130},
+        {name:"Butter Naan",price:35},{name:"Garlic Naan",price:45},{name:"Jeera Rice",price:60},
+        {name:"Veg Pulao",price:120},{name:"Chicken Tikka",price:150},{name:"Veg Soup",price:80},
+        {name:"Tomato Soup",price:70},{name:"Sweet Lassi",price:50}
       ],
-      Lunch: [
-        { name: "Veg Meals", price: 80 },
-        { name: "Curd Rice", price: 60 },
-        { name: "Sambar Rice", price: 55 },
-        { name: "Chicken Curry", price: 120 },
-        { name: "Lemon Rice", price: 65 },
-        { name: "Rasam Rice", price: 50 },
-      ],
-      Dinner: [
-        { name: "Chapati", price: 20 },
-        { name: "Paratha", price: 25 },
-        { name: "Paneer Butter Masala", price: 120 },
-        { name: "Dal Fry", price: 70 },
-        { name: "Veg Biryani", price: 150 },
-        { name: "Chicken Biryani", price: 180 },
-        { name: "Mutton Curry", price: 220 },
-        { name: "Fish Fry", price: 160 },
-        { name: "Egg Curry", price: 90 },
-        { name: "Veg Kurma", price: 100 },
-        { name: "Gobi Manchurian", price: 110 },
-        { name: "Paneer Tikka", price: 130 },
-        { name: "Butter Naan", price: 35 },
-        { name: "Garlic Naan", price: 45 },
-        { name: "Jeera Rice", price: 60 },
-        { name: "Veg Pulao", price: 120 },
-        { name: "Chicken Tikka", price: 150 },
-        { name: "Veg Soup", price: 80 },
-        { name: "Tomato Soup", price: 70 },
-        { name: "Sweet Lassi", price: 50 }
-      ],
-      Snacks: [
-        { name: "Samosa", price: 15 },
-        { name: "Pakoda", price: 25 },
-        { name: "Bhel Puri", price: 30 },
-        { name: "Pani Puri", price: 25 },
-        { name: "Cutlet", price: 35 },
-      ],
-      Beverages: [
-        { name: "Tea", price: 10 },
-        { name: "Coffee", price: 15 },
-        { name: "Badam Milk", price: 35 },
-        { name: "Lassi", price: 30 },
-        { name: "Lemon Soda", price: 25 },
-      ]
+      Snacks:[{name:"Samosa",price:15},{name:"Pakoda",price:25}],
+      Beverages:[{name:"Tea",price:10},{name:"Coffee",price:15}]
     };
+    let selectedItems = {};
+    let currentPage="Tiffin";
 
-    // State
-    let currentPage = "Tiffin";
-    const selectedItems = {}; // key: item name -> { name, price, qty }
+    const tabs=document.getElementById("tabs");
+    const pageTitle=document.getElementById("pageTitle");
+    const content=document.getElementById("content");
+    const cartBtn=document.getElementById("cartBtn");
 
-    // Elements
-    const tabsEl = document.getElementById("tabs");
-    const pageTitleEl = document.getElementById("pageTitle");
-    const contentEl = document.getElementById("content");
-    const cartBtnEl = document.getElementById("cartBtn");
-
-    // Tab interactions
-    tabsEl.addEventListener("click", (e) => {
-      const tab = e.target.closest(".tab");
-      if (!tab) return;
-      const page = tab.getAttribute("data-page");
-      showPage(page);
+    tabs.addEventListener("click",e=>{
+      const tab=e.target.closest(".tab");
+      if(!tab) return;
+      showPage(tab.dataset.page);
     });
+    cartBtn.addEventListener("click",()=>showPage("Selected"));
 
-    // Floating cart -> Selected Items page
-    cartBtnEl.addEventListener("click", () => showPage("Selected"));
-
-    function showPage(page) {
-      currentPage = page;
-
-      // Highlight active tab
-      document.querySelectorAll(".tab").forEach(t => {
-        t.classList.toggle("active", t.getAttribute("data-page") === page);
-      });
-
-      // Fix page name at top
-      pageTitleEl.textContent = page === "Selected" ? "Selected Items" : page;
-
-      // Toggle cart visibility
-      const hasSelection = Object.keys(selectedItems).length > 0;
-      cartBtnEl.classList.toggle("hidden", !hasSelection || page === "Selected");
-
-      // Render
-      renderPage(page);
+    function showPage(page){
+      currentPage=page;
+      document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.page===page));
+      pageTitle.textContent=page==="Selected"?"Selected Items":page;
+      cartBtn.classList.toggle("hidden",!Object.keys(selectedItems).length||page==="Selected");
+      content.innerHTML="";
+      if(page==="Selected"){renderSelected();return;}
+      renderItems(menu[page]);
     }
 
-    function renderPage(page) {
-      contentEl.className = "content-inner";
-      // Add category class for color tints
-      const categoryClass = {
-        Tiffin: "category-tiffin",
-        Lunch: "category-lunch",
-        Dinner: "category-dinner",
-        Snacks: "category-snacks",
-        Beverages: "category-beverages",
-        Selected: "" // no tint on selected page
-      }[page] || "";
-
-      contentEl.classList.remove("category-tiffin","category-lunch","category-dinner","category-snacks","category-beverages");
-      if (categoryClass) contentEl.classList.add(categoryClass);
-
-      contentEl.innerHTML = "";
-
-      if (page === "Selected") {
-        renderSelected();
-        return;
-      }
-
-      const items = menu[page] || [];
-      renderItems(items);
-    }
-
-    function renderItems(items) {
-      if (!items.length) {
-        const empty = document.createElement("div");
-        empty.className = "muted";
-        empty.textContent = "No items available.";
-        contentEl.appendChild(empty);
-        return;
-      }
-
-      items.forEach(item => {
-        const row = document.createElement("div");
-        row.className = "item";
-        if (selectedItems[item.name]) row.classList.add("selected");
-
-        const nameEl = document.createElement("div");
-        nameEl.className = "item-name";
-        nameEl.textContent = item.name;
-
-        const priceEl = document.createElement("div");
-        priceEl.className = "item-price";
-        priceEl.textContent = `₹${item.price}`;
-
-        row.appendChild(nameEl);
-        row.appendChild(priceEl);
-
-        // Tap toggles select/unselect
-        row.addEventListener("click", () => toggleItem(item.name, item.price));
-        contentEl.appendChild(row);
+    function renderItems(items){
+      items.forEach(item=>{
+        const row=document.createElement("div");
+        row.className="item";
+        if(selectedItems[item.name]) row.classList.add("selected");
+        row.innerHTML=`<div>${item.name}</div><div>₹${item.price}</div>`;
+        row.onclick=()=>toggleItem(item.name,item.price);
+        content.appendChild(row);
       });
     }
 
-    function renderSelected() {
-      // Total on top
-      let total = 0;
-      const totalEl = document.createElement("div");
-      totalEl.className = "total";
-      contentEl.appendChild(totalEl);
-
-      const names = Object.keys(selectedItems);
-      if (!names.length) {
-        totalEl.textContent = "Total: ₹0";
-        const empty = document.createElement("div");
-        empty.className = "muted";
-        empty.textContent = "No items selected. Tap items in any page to add.";
-        contentEl.appendChild(empty);
-        return;
-      }
-
-      names.forEach(name => {
-        const item = selectedItems[name];
-        total += item.price * item.qty;
-
-        const row = document.createElement("div");
-        row.className = "item selected";
-
-        const left = document.createElement("div");
-        left.className = "item-name";
-        left.textContent = `${item.name} — ₹${item.price}`;
-
-        const right = document.createElement("div");
-        right.className = "item-price";
-        right.innerHTML = `
-          <span>₹${item.price * item.qty}</span>
-          <span class="qty">
-            <label for="qty-${cssId(name)}" style="display:none">Qty</label>
-            <input id="qty-${cssId(name)}" type="number" min="1" value="${item.qty}" />
-          </span>
-        `;
-
-        // Tap row to unselect (unless tapping qty input)
-        row.addEventListener("click", (e) => {
-          if (e.target && e.target.tagName === "INPUT") return;
-          toggleItem(item.name, item.price);
-        });
-
-        // Qty change
-        const qtyInput = right.querySelector("input");
-        qtyInput.addEventListener("input", (e) => {
-          const v = Math.max(1, parseInt(e.target.value || "1", 10));
-          updateQty(item.name, v);
-        });
-
-        row.appendChild(left);
-        row.appendChild(right);
-        contentEl.appendChild(row);
+    function renderSelected(){
+      let total=0;
+      const totalDiv=document.createElement("div");
+      totalDiv.className="total";
+      content.appendChild(totalDiv);
+      Object.values(selectedItems).forEach(item=>{
+        total+=item.price*item.qty;
+        const row=document.createElement("div");
+        row.className="item selected";
+        row.innerHTML=`<div>${item.name} — ₹${item.price}</div>
+          <div>₹${item.price*item.qty}
+            <span class="qty"><input type="number" min="1" value="${item.qty}" /></span>
+          </div>`;
+        row.querySelector("input").oninput=(e)=>updateQty(item.name,e.target.value);
+        row.onclick=(e)=>{if(e.target.tagName!=="INPUT") toggleItem(item.name,item.price);};
+        content.appendChild(row);
       });
-
-      totalEl.textContent = `Total: ₹${total}`;
+      totalDiv.textContent="Total: ₹"+total;
     }
 
-    function toggleItem(name, price) {
-      if (selectedItems[name]) {
-        delete selectedItems[name];
-      } else {
-        selectedItems[name] = { name, price, qty: 1 };
-      }
-      // Repaint current page without jumping
-      renderPage(currentPage);
-      // Update cart visibility
-      const hasSelection = Object.keys(selectedItems).length > 0;
-      cartBtnEl.classList.toggle("hidden", !hasSelection || currentPage === "Selected");
+    function toggleItem(name,price){
+      if(selectedItems[name]) delete selectedItems[name];
+      else selectedItems[name]={name,price,qty:1};
+      showPage(currentPage);
+    }
+    function updateQty(name,qty){
+      if(selectedItems[name]){selectedItems[name].qty=parseInt(qty)||1;showPage("Selected");}
     }
 
-    function updateQty(name, qty) {
-      if (selectedItems[name]) {
-        selectedItems[name].qty = qty;
-        if (currentPage === "Selected") renderSelected();
-      }
-    }
-
-    function cssId(text) {
-      return text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
-    }
-
-    // First load
     showPage("Tiffin");
   </script>
 </body>
