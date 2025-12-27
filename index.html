@@ -23,7 +23,6 @@
       color: var(--text);
       display: flex;
       flex-direction: column;
-      overflow: hidden; /* disable page scroll */
     }
 
     header {
@@ -63,7 +62,7 @@
 
     main {
       flex: 1;
-      overflow-y: auto; /* only menu scrolls */
+      overflow-y: auto;
       padding: 12px;
     }
 
@@ -73,6 +72,7 @@
       margin-bottom: 25px;
       background: rgba(255, 255, 255, 0.25);
       border-radius: 12px;
+      backdrop-filter: saturate(130%) blur(0px);
     }
 
     section.active {
@@ -109,17 +109,16 @@
       background: var(--brand-1);
       color: white;
       text-align: center;
-      padding: 56px 16px; /* taller footer */
+      padding: 50px 16px; /* taller footer */
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
       font-size: 15px;
-      line-height: normal; /* text sits at top line */
     }
   </style>
 </head>
 <body>
   <header>🍴 Sri Matha Restorent 🍴</header>
-  <nav id="tabs">
+  <nav>
     <a href="#tiffin" class="active">Tiffin</a>
     <a href="#lunch">Lunch</a>
     <a href="#dinner">Dinner</a>
@@ -202,25 +201,30 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const navLinks = document.querySelectorAll("#tabs a");
+      const navLinks = document.querySelectorAll("nav a");
       const sections = document.querySelectorAll("main section");
 
-      function activateTab(id) {
-        navLinks.forEach(link => {
-          link.classList.toggle("active", link.getAttribute("href") === "#" + id);
-        });
+      function setActive(link) {
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      }
+
+      function showSection(id) {
         sections.forEach(sec => {
-          sec.classList.toggle("active", sec.id === id);
+          sec.classList.remove("active");
+          if (sec.id === id) {
+            sec.classList.add("active");
+          }
         });
       }
 
-      // Click handler
       navLinks.forEach(link => {
         link.addEventListener("click", e => {
           e.preventDefault();
           const id = link.getAttribute("href").substring(1);
-          activateTab(id);
+          setActive(link);
+          showSection(id);
         });
       });
-
-      // Initialize based on hash or default
+    });
+  </script>
