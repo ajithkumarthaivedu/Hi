@@ -1,398 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Typical Restaurant Menu</title>
+  <meta charset="UTF-8">
+  <title>Murugan Hotel Menu</title>
   <style>
     :root {
-      --primary: #2e7d32;
+      --primary: #ff6f61;
+      --nav: #2f3e46;
+      --bg1: #fbc2eb;
+      --bg2: #a6c1ee;
+      --card: #ffffffee;
       --text: #222;
-      --muted: #666;
-      --bg: #fafafa;
-      --card: #ffffff;
-      --border: #e5e7eb;
-      --accent: #ffca28;
     }
-
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.5;
+      margin: 0; font-family: Arial, sans-serif; color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
     }
-
     header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      background: var(--primary); color: #fff; text-align: center;
+      padding: 18px; font-size: 26px; letter-spacing: 0.5px;
     }
-
-    .brand {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand h1 {
-      font-size: 1.25rem;
-      margin: 0;
-      color: var(--primary);
-    }
-    .brand .sub {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
     nav {
-      background: var(--card);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      background: var(--nav); display: flex; flex-wrap: wrap;
     }
-    .tabs {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 10px 20px;
+    nav button {
+      flex: 1; background: none; border: none; color: #fff;
+      padding: 12px; cursor: pointer; font-size: 16px;
     }
-    .tab-btn {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.15s ease;
-    }
-    .tab-btn:hover { border-color: var(--primary); }
-    .tab-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
-
+    nav button:hover { background: #ffffff22; }
     main {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 0 20px 40px;
+      max-width: 900px; margin: 24px auto; padding: 0 16px;
     }
-
-    .section {
-      display: none;
-      animation: fadeIn 180ms ease;
+    .card {
+      background: var(--card); border-radius: 12px; padding: 18px;
+      box-shadow: 0 6px 18px #00000022;
     }
-    .section.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    h2 { margin: 0 0 14px; color: #1f2937; }
+    table {
+      width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden;
     }
-
-    .section h2 {
-      margin: 10px 0 16px;
-      font-size: 1.3rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .badge {
-      background: var(--accent);
-      color: #3c2a00;
-      font-size: 0.8rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    @media (max-width: 640px) {
-      .menu-grid { grid-template-columns: 1fr; }
-      .tabs { grid-template-columns: 1fr 1fr; }
-    }
-
-    .item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .item-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .item-name {
-      font-weight: 600;
-    }
-    .item-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    .price {
-      font-weight: 700;
-      color: #1f2937;
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 10px;
-      min-width: 76px;
-      text-align: center;
-    }
-
+    thead { background: #ffe0da; }
+    th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; }
+    tbody tr:hover { background: #f9fafb; }
     footer {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: var(--muted);
+      background: var(--primary); color: #fff; text-align: center;
+      padding: 10px; font-size: 14px; position: fixed; bottom: 0; width: 100%;
     }
+    .menu { display: none; }
+    .menu.active { display: block; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand" role="banner">
-      <h1>Typical Restaurant Menu</h1>
-      <span class="sub">Casual items with average prices (₹)</span>
-    </div>
-    <nav aria-label="Menu categories">
-      <div class="tabs">
-        <button class="tab-btn active" data-target="tiffin">Tiffin</button>
-        <button class="tab-btn" data-target="lunch">Lunch</button>
-        <button class="tab-btn" data-target="dinner">Dinner</button>
-        <button class="tab-btn" data-target="snacks">Snacks</button>
-        <button class="tab-btn" data-target="beverages">Beverages</button>
-      </div>
-    </nav>
-  </header>
-
+  <header>Murugan Hotel</header>
+  <nav>
+    <button onclick="showMenu('tiffin')">Tiffin</button>
+    <button onclick="showMenu('lunch')">Lunch</button>
+    <button onclick="showMenu('dinner')">Dinner</button>
+    <button onclick="showMenu('snacks')">Snacks</button>
+    <button onclick="showMenu('beverages')">Beverages</button>
+  </nav>
   <main>
     <!-- Tiffin -->
-    <section id="tiffin" class="section active" aria-labelledby="tiffin-title">
-      <h2 id="tiffin-title">Tiffin <span class="badge">Morning</span></h2>
-      <div class="menu-grid">
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Idli (2 pcs)</span>
-            <span class="item-desc">Served with sambar and coconut chutney</span>
-          </div>
-          <span class="price">₹30</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Masala Dosa</span>
-            <span class="item-desc">Crisp dosa with spiced potato filling</span>
-          </div>
-          <span class="price">₹70</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Vada (2 pcs)</span>
-            <span class="item-desc">Golden fried lentil donuts</span>
-          </div>
-          <span class="price">₹35</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Upma</span>
-            <span class="item-desc">Savory semolina with veggies</span>
-          </div>
-          <span class="price">₹45</span>
-        </div>
-      </div>
-    </section>
+    <div id="tiffin" class="menu active card">
+      <h2>Tiffin Menu</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
+        <tbody>
+          <tr><td>Idli Sambar</td><td>₹30</td></tr>
+          <tr><td>Masala Dosa</td><td>₹50</td></tr>
+          <tr><td>Upma</td><td>₹35</td></tr>
+          <tr><td>Pongal</td><td>₹40</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Lunch -->
-    <section id="lunch" class="section" aria-labelledby="lunch-title">
-      <h2 id="lunch-title">Lunch <span class="badge">Afternoon</span></h2>
-      <div class="menu-grid">
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Veg Thali</span>
-            <span class="item-desc">Rice, 2 curries, dal, roti, salad, sweet</span>
-          </div>
-          <span class="price">₹120</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Curd Rice</span>
-            <span class="item-desc">Comfort bowl with tempering</span>
-          </div>
-          <span class="price">₹70</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Bisi Bele Bath</span>
-            <span class="item-desc">Hearty lentil-rice dish, Karnataka style</span>
-          </div>
-          <span class="price">₹90</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Chapati with Veg Curry</span>
-            <span class="item-desc">2 chapatis with seasonal curry</span>
-          </div>
-          <span class="price">₹80</span>
-        </div>
-      </div>
-    </section>
+    <div id="lunch" class="menu card">
+      <h2>Lunch Menu</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
+        <tbody>
+          <tr><td>Veg Thali</td><td>₹120</td></tr>
+          <tr><td>Paneer Butter Masala</td><td>₹150</td></tr>
+          <tr><td>Chicken Biryani</td><td>₹180</td></tr>
+          <tr><td>Curd Rice</td><td>₹60</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Dinner -->
-    <section id="dinner" class="section" aria-labelledby="dinner-title">
-      <h2 id="dinner-title">Dinner <span class="badge">Evening</span></h2>
-      <div class="menu-grid">
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Ghee Roast Dosa</span>
-            <span class="item-desc">Crisp, aromatic, served with chutneys</span>
-          </div>
-          <span class="price">₹90</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Veg Fried Rice</span>
-            <span class="item-desc">Wok-tossed rice with veggies</span>
-          </div>
-          <span class="price">₹110</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Paneer Butter Masala with Naan</span>
-            <span class="item-desc">Creamy paneer curry with 2 naan</span>
-          </div>
-          <span class="price">₹160</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Tomato Bath</span>
-            <span class="item-desc">Flavored rice with tomato and spices</span>
-          </div>
-          <span class="price">₹80</span>
-        </div>
-      </div>
-    </section>
+    <div id="dinner" class="menu card">
+      <h2>Dinner Menu</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
+        <tbody>
+          <tr><td>Chapati with Curry</td><td>₹70</td></tr>
+          <tr><td>Veg Fried Rice</td><td>₹90</td></tr>
+          <tr><td>Dal Tadka</td><td>₹80</td></tr>
+          <tr><td>Mixed Veg Curry</td><td>₹100</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Snacks -->
-    <section id="snacks" class="section" aria-labelledby="snacks-title">
-      <h2 id="snacks-title">Snacks <span class="badge">Anytime</span></h2>
-      <div class="menu-grid">
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Samosa (2 pcs)</span>
-            <span class="item-desc">Crispy pastry with spiced potato</span>
-          </div>
-          <span class="price">₹40</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Pani Puri (6 pcs)</span>
-            <span class="item-desc">Tangy water, crunchy puris</span>
-          </div>
-          <span class="price">₹50</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Egg Puff</span>
-            <span class="item-desc">Bakery-style flaky puff</span>
-          </div>
-          <span class="price">₹30</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Veg Cutlet (2 pcs)</span>
-            <span class="item-desc">Crisp crumbed veggie patty</span>
-          </div>
-          <span class="price">₹45</span>
-        </div>
-      </div>
-    </section>
+    <div id="snacks" class="menu card">
+      <h2>Snacks Menu</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
+        <tbody>
+          <tr><td>Samosa</td><td>₹20</td></tr>
+          <tr><td>Pakora</td><td>₹30</td></tr>
+          <tr><td>Vada Pav</td><td>₹25</td></tr>
+          <tr><td>Bhel Puri</td><td>₹35</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Beverages -->
-    <section id="beverages" class="section" aria-labelledby="beverages-title">
-      <h2 id="beverages-title">Beverages <span class="badge">Refreshments</span></h2>
-      <div class="menu-grid">
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Filter Coffee</span>
-            <span class="item-desc">Strong, aromatic South Indian style</span>
-          </div>
-          <span class="price">₹30</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Masala Chai</span>
-            <span class="item-desc">Spiced tea with milk</span>
-          </div>
-          <span class="price">₹25</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Fresh Lime Soda</span>
-            <span class="item-desc">Sweet or salted, your choice</span>
-          </div>
-          <span class="price">₹40</span>
-        </div>
-        <div class="item">
-          <div class="item-info">
-            <span class="item-name">Badam Milk</span>
-            <span class="item-desc">Chilled almond milk drink</span>
-          </div>
-          <span class="price">₹60</span>
-        </div>
-      </div>
-    </section>
+    <div id="beverages" class="menu card">
+      <h2>Beverages Menu</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Average Price</th></tr></thead>
+        <tbody>
+          <tr><td>Masala Chai</td><td>₹15</td></tr>
+          <tr><td>Filter Coffee</td><td>₹20</td></tr>
+          <tr><td>Lassi</td><td>₹40</td></tr>
+          <tr><td>Fresh Lime Soda</td><td>₹30</td></tr>
+        </tbody>
+      </table>
+    </div>
   </main>
-
-  <footer>
-    Prices shown are average estimates and may vary by location and season.
-  </footer>
+  <footer>123 Food Street, Bengaluru, Karnataka</footer>
 
   <script>
-    // Simple tab switching
-    const buttons = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.section');
-
-    function showTab(targetId) {
-      sections.forEach(sec => {
-        sec.classList.toggle('active', sec.id === targetId);
-      });
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.target === targetId);
-      });
+    function showMenu(id) {
+      document.querySelectorAll('.menu').forEach(m => m.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => showTab(btn.dataset.target));
-    });
-
-    // Optional: support hash navigation (#lunch, etc.)
-    const initial = location.hash?.replace('#', '') || 'tiffin';
-    if (document.getElementById(initial)) {
-      showTab(initial);
-    }
-    window.addEventListener('hashchange', () => {
-      const id = location.hash.replace('#', '');
-      if (document.getElementById(id)) showTab(id);
-    });
   </script>
 </body>
 </html>
