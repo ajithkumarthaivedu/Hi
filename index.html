@@ -1,237 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Sri Matha Restorent</title>
-  <style>
-    :root {
-      --brand-1: #ff4e50;
-      --brand-2: #ff6f61;
-      --bg-1: linear-gradient(135deg, #ffecd2, #fcb69f);
-      --card: #fff3e0;
-      --text: #333;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
-      background: var(--bg-1);
-      color: var(--text);
-      overflow: hidden;
-    }
-
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-    }
-
-    header {
-      background: var(--brand-1);
-      color: #fff;
-      text-align: center;
-      padding: 14px 16px;
-      font-size: 20px;
-      font-weight: 700;
-      border-bottom: 1px solid rgba(255,255,255,0.25);
-    }
-
-    nav {
-      display: flex;
-      gap: 8px;
-      background: var(--brand-2);
-      padding: 8px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      padding: 9px 12px;
-      font-weight: 600;
-      border-radius: 8px;
-      white-space: nowrap;
-      transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
-      touch-action: manipulation;
-    }
-
-    nav a.active {
-      background: #ffecd2;
-      color: var(--brand-1);
-      transform: scale(1.05);
-    }
-
-    main {
-      position: absolute;
-      top: 120px;
-      left: 0;
-      right: 0;
-      bottom: 140px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 12px;
-    }
-
-    section {
-      display: none;
-      padding: 20px;
-      margin-bottom: 25px;
-      background: rgba(255, 255, 255, 0.35);
-      border-radius: 12px;
-    }
-
-    section.active { display: block; }
-
-    h2 {
-      margin: 0 0 10px;
-      color: var(--brand-1);
-      border-bottom: 2px solid var(--brand-2);
-      padding-bottom: 6px;
-      font-size: 18px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    li {
-      background: var(--card);
-      padding: 12px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 15px;
-    }
-
-    li button.select-btn {
-      margin-left: 10px;
-      background: var(--brand-2);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    footer {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--brand-1);
-      color: #fff;
-      text-align: center;
-      padding: 56px 16px;
-      border-top: 2px solid var(--brand-2);
-      font-size: 15px;
-      line-height: normal;
-      z-index: 900;
-    }
-
-    #floating-cart {
-      position: fixed;
-      bottom: 160px;
-      right: 20px;
-      background: var(--brand-2);
-      color: #fff;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 1001;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Matha Restorent</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* prevent scrolling */
+  }
+  header, footer {
+    position: fixed;
+    left: 0; right: 0;
+    background: #d35400;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+  }
+  header { top: 0; }
+  footer { bottom: 0; }
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    background: #f39c12;
+    position: fixed;
+    top: 50px; /* below header */
+    left: 0; right: 0;
+    z-index: 999;
+  }
+  .tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .tab.active {
+    background: #e67e22;
+    font-weight: bold;
+    color: #fff;
+  }
+  .page {
+    display: none;
+    position: absolute;
+    top: 100px; /* below header+tabs */
+    bottom: 50px; /* above footer */
+    left: 0; right: 0;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fdfdfd;
+  }
+  .page.active { display: block; }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  .item.selected {
+    background: #d1f2eb;
+  }
+  .floating-icon {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: #27ae60;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    z-index: 1001;
+  }
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <header>🍴 Sri Matha Restorent 🍴</header>
-    <nav id="tabs" aria-label="Menu categories">
-      <a href="#tiffin" class="active">Tiffin</a>
-      <a href="#lunch">Lunch</a>
-      <a href="#dinner">Dinner</a>
-      <a href="#snacks">Snacks</a>
-      <a href="#beverages">Beverages</a>
-      <a href="#selected">Selected</a>
-    </nav>
-  </div>
 
-  <main>
-    <section id="tiffin">
-      <h2>Tiffin</h2>
-      <ul>
-        <li><span>Idli (2 pcs)</span><span>₹30</span><button class="select-btn">Select</button></li>
-        <li><span>Dosa</span><span>₹50</span><button class="select-btn">Select</button></li>
-        <li><span>Poori</span><span>₹40</span><button class="select-btn">Select</button></li>
-        <li><span>Upma</span><span>₹45</span><button class="select-btn">Select</button></li>
-      </ul>
-    </section>
+<header>Sri Matha Restorent</header>
 
-    <section id="lunch">
-      <h2>Lunch</h2>
-      <ul>
-        <li><span>Veg Thali</span><span>₹120</span><button class="select-btn">Select</button></li>
-        <li><span>Chicken Curry with Rice</span><span>₹180</span><button class="select-btn">Select</button></li>
-        <li><span>Paneer Butter Masala</span><span>₹150</span><button class="select-btn">Select</button></li>
-        <li><span>Curd Rice</span><span>₹90</span><button class="select-btn">Select</button></li>
-      </ul>
-    </section>
+<div class="tabs">
+  <div class="tab active" data-page="tiffin">Tiffin</div>
+  <div class="tab" data-page="lunch">Lunch</div>
+  <div class="tab" data-page="dinner">Dinner</div>
+  <div class="tab" data-page="snacks">Snacks</div>
+  <div class="tab" data-page="beverages">Beverages</div>
+</div>
 
-    <section id="dinner">
-      <h2>Dinner</h2>
-      <ul>
-        <li><span>Roti with Dal</span><span>₹100</span><button class="select-btn">Select</button></li>
-        <li><span>Fish Fry</span><span>₹200</span><button class="select-btn">Select</button></li>
-        <li><span>Mutton Biryani</span><span>₹250</span><button class="select-btn">Select</button></li>
-        <li><span>Veg Pulao</span><span>₹130</span><button class="select-btn">Select</button></li>
-        <!-- Add select buttons for all dinner items similarly -->
-      </ul>
-    </section>
+<div id="tiffin" class="page active">
+  <div class="item">Idli <span>₹30</span></div>
+  <div class="item">Dosa <span>₹40</span></div>
+</div>
 
-    <section id="snacks">
-      <h2>Snacks</h2>
-      <ul>
-        <li><span>Samosa</span><span>₹20</span><button class="select-btn">Select</button></li>
-        <li><span>Pav Bhaji</span><span>₹70</span><button class="select-btn">Select</button></li>
-        <li><span>French Fries</span><span>₹90</span><button class="select-btn">Select</button></li>
-        <li><span>Pakora</span><span>₹50</span><button class="select-btn">Select</button></li>
-      </ul>
-    </section>
+<div id="lunch" class="page">
+  <div class="item">Meals <span>₹80</span></div>
+  <div class="item">Curd Rice <span>₹50</span></div>
+</div>
 
-    <section id="beverages">
-      <h2>Beverages</h2>
-      <ul>
-        <li><span>Masala Chai</span><span>₹20</span><button class="select-btn">Select</button></li>
-        <li><span>Cold Coffee</span><span>₹60</span><button class="select-btn">Select</button></li>
-        <li><span>Lassi</span><span>₹50</span><button class="select-btn">Select</button></li>
-        <li><span>Fresh Lime Soda</span><span>₹40</span><button class="select-btn">Select</button></li>
-      </ul>
-    </section>
+<div id="dinner" class="page">
+  <div class="item">Chapati <span>₹40</span></div>
+  <div class="item">Veg Curry <span>₹60</span></div>
+</div>
 
-    <section id="selected">
-      <h2>Selected Items</h2>
-      <ul id="selected-list"></ul>
-    </section>
-  </main>
+<div id="snacks" class="page">
+  <div class="item">Samosa <span>₹20</span></div>
+  <div class="item">Pakora <span>₹25</span></div>
+</div>
 
-  <footer>
-    📍 Address: 123 Food Street, Bengaluru<br>
-    ☎️ Phone: +91 98765 43210
+<div id="beverages" class="page">
+  <div class="item">Tea <span>₹15</span></div>
+  <div class="item">Coffee <span>₹20</span></div>
+</div>
+
+<div id="selected" class="page">
+  <h3>Selected Items</h3>
+  <div id="selected-list"></div>
+</div>
+
+<div class="floating-icon" id="floating-icon">🛒</div>
+
+<footer>Sample Address, Bengaluru</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const pages = document.querySelectorAll('.page');
+  const items = document.querySelectorAll('.item');
+  const selectedPage = document.getElementById('selected');
+  const selectedList = document.getElementById('selected-list');
+  const floatingIcon = document.getElementById('floating-icon');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(tab.dataset.page).classList.add('active');
+    });
+  });
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('selected');
+      updateSelected();
+    });
+  });
+
+  function updateSelected() {
+    selectedList.innerHTML = '';
+    const selectedItems = document.querySelectorAll('.item.selected');
+    if (selectedItems.length > 0) {
+      floatingIcon.style.display = 'block';
+      selectedItems.forEach(si => {
+        const clone = si.cloneNode(true);
+        clone.classList.remove('selected');
+        selectedList.appendChild(clone);
+      });
+    } else {
+      floatingIcon.style.display = 'none';
+    }
+  }
+
+  floatingIcon.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    pages.forEach(p => p.classList.remove('active'));
+    selectedPage.classList.add('active');
+  });
+</script>
+
+</body>
+</html>
