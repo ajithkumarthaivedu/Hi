@@ -22,10 +22,9 @@
       font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
       background: var(--bg-1);
       color: var(--text);
-      overflow: hidden; /* lock page scroll */
+      overflow: hidden;
     }
 
-    /* Fixed header + nav (no jump, always visible) */
     .topbar {
       position: fixed;
       top: 0;
@@ -70,15 +69,12 @@
       transform: scale(1.05);
     }
 
-    /* Content area scrolls only */
     main {
       position: absolute;
-      top: calc(14px + 16px + 8px + 40px); /* header + its padding + nav padding + approx tab height */
-      /* To be safer across devices, give a fixed content top offset based on actual header+nav height */
       top: 120px;
       left: 0;
       right: 0;
-      bottom: 140px; /* leave space for footer */
+      bottom: 140px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 12px;
@@ -121,7 +117,17 @@
       font-size: 15px;
     }
 
-    /* Footer fixed, taller, text at first line */
+    li button.select-btn {
+      margin-left: 10px;
+      background: var(--brand-2);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
     footer {
       position: fixed;
       left: 0;
@@ -136,6 +142,23 @@
       line-height: normal;
       z-index: 900;
     }
+
+    #floating-cart {
+      position: fixed;
+      bottom: 160px;
+      right: 20px;
+      background: var(--brand-2);
+      color: #fff;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1001;
+    }
   </style>
 </head>
 <body>
@@ -147,6 +170,7 @@
       <a href="#dinner">Dinner</a>
       <a href="#snacks">Snacks</a>
       <a href="#beverages">Beverages</a>
+      <a href="#selected">Selected</a>
     </nav>
   </div>
 
@@ -154,112 +178,60 @@
     <section id="tiffin">
       <h2>Tiffin</h2>
       <ul>
-        <li><span>Idli (2 pcs)</span><span>₹30</span></li>
-        <li><span>Dosa</span><span>₹50</span></li>
-        <li><span>Poori</span><span>₹40</span></li>
-        <li><span>Upma</span><span>₹45</span></li>
+        <li><span>Idli (2 pcs)</span><span>₹30</span><button class="select-btn">Select</button></li>
+        <li><span>Dosa</span><span>₹50</span><button class="select-btn">Select</button></li>
+        <li><span>Poori</span><span>₹40</span><button class="select-btn">Select</button></li>
+        <li><span>Upma</span><span>₹45</span><button class="select-btn">Select</button></li>
       </ul>
     </section>
 
     <section id="lunch">
       <h2>Lunch</h2>
       <ul>
-        <li><span>Veg Thali</span><span>₹120</span></li>
-        <li><span>Chicken Curry with Rice</span><span>₹180</span></li>
-        <li><span>Paneer Butter Masala</span><span>₹150</span></li>
-        <li><span>Curd Rice</span><span>₹90</span></li>
+        <li><span>Veg Thali</span><span>₹120</span><button class="select-btn">Select</button></li>
+        <li><span>Chicken Curry with Rice</span><span>₹180</span><button class="select-btn">Select</button></li>
+        <li><span>Paneer Butter Masala</span><span>₹150</span><button class="select-btn">Select</button></li>
+        <li><span>Curd Rice</span><span>₹90</span><button class="select-btn">Select</button></li>
       </ul>
     </section>
 
     <section id="dinner">
       <h2>Dinner</h2>
       <ul>
-        <li><span>Roti with Dal</span><span>₹100</span></li>
-        <li><span>Fish Fry</span><span>₹200</span></li>
-        <li><span>Mutton Biryani</span><span>₹250</span></li>
-        <li><span>Veg Pulao</span><span>₹130</span></li>
-        <li><span>Butter Naan</span><span>₹40</span></li>
-        <li><span>Chicken Tikka</span><span>₹220</span></li>
-        <li><span>Paneer Tikka</span><span>₹180</span></li>
-        <li><span>Dal Makhani</span><span>₹140</span></li>
-        <li><span>Jeera Rice</span><span>₹90</span></li>
-        <li><span>Mixed Veg Curry</span><span>₹130</span></li>
-        <li><span>Egg Curry</span><span>₹150</span></li>
-        <li><span>Chicken Biryani</span><span>₹200</span></li>
-        <li><span>Gobi Manchurian</span><span>₹120</span></li>
-        <li><span>Veg Fried Rice</span><span>₹110</span></li>
-        <li><span>Chilli Chicken</span><span>₹190</span></li>
-        <li><span>Palak Paneer</span><span>₹160</span></li>
-        <li><span>Rajma Masala</span><span>₹130</span></li>
-        <li><span>Stuffed Paratha</span><span>₹80</span></li>
-        <li><span>Tomato Soup</span><span>₹70</span></li>
-        <li><span>Veg Hakka Noodles</span><span>₹120</span></li>
+        <li><span>Roti with Dal</span><span>₹100</span><button class="select-btn">Select</button></li>
+        <li><span>Fish Fry</span><span>₹200</span><button class="select-btn">Select</button></li>
+        <li><span>Mutton Biryani</span><span>₹250</span><button class="select-btn">Select</button></li>
+        <li><span>Veg Pulao</span><span>₹130</span><button class="select-btn">Select</button></li>
+        <!-- Add select buttons for all dinner items similarly -->
       </ul>
     </section>
 
     <section id="snacks">
       <h2>Snacks</h2>
       <ul>
-        <li><span>Samosa</span><span>₹20</span></li>
-        <li><span>Pav Bhaji</span><span>₹70</span></li>
-        <li><span>French Fries</span><span>₹90</span></li>
-        <li><span>Pakora</span><span>₹50</span></li>
+        <li><span>Samosa</span><span>₹20</span><button class="select-btn">Select</button></li>
+        <li><span>Pav Bhaji</span><span>₹70</span><button class="select-btn">Select</button></li>
+        <li><span>French Fries</span><span>₹90</span><button class="select-btn">Select</button></li>
+        <li><span>Pakora</span><span>₹50</span><button class="select-btn">Select</button></li>
       </ul>
     </section>
 
     <section id="beverages">
       <h2>Beverages</h2>
       <ul>
-        <li><span>Masala Chai</span><span>₹20</span></li>
-        <li><span>Cold Coffee</span><span>₹60</span></li>
-        <li><span>Lassi</span><span>₹50</span></li>
-        <li><span>Fresh Lime Soda</span><span>₹40</span></li>
+        <li><span>Masala Chai</span><span>₹20</span><button class="select-btn">Select</button></li>
+        <li><span>Cold Coffee</span><span>₹60</span><button class="select-btn">Select</button></li>
+        <li><span>Lassi</span><span>₹50</span><button class="select-btn">Select</button></li>
+        <li><span>Fresh Lime Soda</span><span>₹40</span><button class="select-btn">Select</button></li>
       </ul>
+    </section>
+
+    <section id="selected">
+      <h2>Selected Items</h2>
+      <ul id="selected-list"></ul>
     </section>
   </main>
 
   <footer>
     📍 Address: 123 Food Street, Bengaluru<br>
     ☎️ Phone: +91 98765 43210
-  </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const nav = document.getElementById("tabs");
-      const links = Array.from(nav.querySelectorAll("a"));
-      const sections = Array.from(document.querySelectorAll("main section"));
-
-      function activate(id) {
-        // Default to tiffin if id missing
-        const valid = sections.some(s => s.id === id);
-        const targetId = valid ? id : "tiffin";
-
-        links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + targetId));
-        sections.forEach(sec => sec.classList.toggle("active", sec.id === targetId));
-      }
-
-      function currentId() {
-        return (location.hash || "#tiffin").slice(1);
-      }
-
-      // Robust click handling (no jump, no scroll change)
-      nav.addEventListener("click", (e) => {
-        const a = e.target.closest("a");
-        if (!a) return;
-        e.preventDefault();
-        const id = a.getAttribute("href").slice(1);
-        activate(id);
-        // Update URL without causing anchor jump
-        history.replaceState(null, "", "#" + id);
-      });
-
-      // Sync with back/forward/hash change
-      window.addEventListener("hashchange", () => activate(currentId()));
-      window.addEventListener("popstate", () => activate(currentId()));
-
-      // Force initial activation — items visible immediately
-      activate(currentId());
-    });
-  </script>
-</body>
-</html>
