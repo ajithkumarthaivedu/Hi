@@ -5,95 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sri Matha Restorent</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* prevent scrolling */
-  }
+  body { margin:0; font-family:Arial,sans-serif; overflow:hidden; }
   header, footer {
-    position: fixed;
-    left: 0; right: 0;
-    background: #d35400;
-    color: white;
-    text-align: center;
-    padding: 20px; /* increased height */
-    z-index: 1000;
-    font-size: 20px;
-    font-weight: bold;
+    position:fixed; left:0; right:0;
+    background:#d35400; color:white; text-align:center;
+    padding:20px; font-size:20px; font-weight:bold; z-index:1000;
   }
-  header { top: 0; }
-  footer { bottom: 0; }
-  .tabs {
-    display: flex;
-    justify-content: space-around;
-    background: #f39c12;
-    position: fixed;
-    top: 70px; /* below header */
-    left: 0; right: 0;
-    z-index: 999;
+  header{top:0;} footer{bottom:0;}
+  .tabs{display:flex; justify-content:space-around; background:#f39c12;
+    position:fixed; top:70px; left:0; right:0; z-index:999;}
+  .tab{flex:1; padding:12px; text-align:center; cursor:pointer; font-size:16px;}
+  .tab.active{background:#e67e22; font-weight:bold; color:#fff;}
+  .page{display:none; position:absolute; top:120px; bottom:90px;
+    left:0; right:0; overflow-y:auto; padding:10px; background:#fdf6e3;} /* mild beige */
+  .page.active{display:block;}
+  .item{display:flex; justify-content:space-between; padding:10px;
+    border-bottom:1px solid #ddd; cursor:pointer; font-size:16px;}
+  .item.selected{background:#d1f2eb;}
+  .floating-icon{
+    position:fixed; bottom:110px; right:20px;
+    background:transparent; border:3px solid blue; color:blue;
+    font-size:30px; padding:20px; border-radius:50%; cursor:pointer;
+    display:none; z-index:1001; transition:border-color .3s, transform .2s;
+    box-shadow:0 4px 8px rgba(0,0,0,.3);
   }
-  .tab {
-    flex: 1;
-    padding: 12px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  .tab.active {
-    background: #e67e22;
-    font-weight: bold;
-    color: #fff;
-  }
-  .page {
-    display: none;
-    position: absolute;
-    top: 120px; /* below header+tabs */
-    bottom: 90px; /* above footer */
-    left: 0; right: 0;
-    overflow-y: auto;
-    padding: 10px;
-  }
-  .page.active { display: block; }
-  .item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  .item.selected {
-    background: #d1f2eb;
-  }
-  /* Floating cart icon */
-  .floating-icon {
-    position: fixed;
-    bottom: 110px;
-    right: 20px;
-    background: transparent; /* transparent fill */
-    border: 3px solid blue;  /* border color */
-    color: blue;
-    font-size: 30px;   /* bigger size */
-    padding: 20px;     /* larger circle */
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    z-index: 1001;
-    transition: border-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-  .floating-icon.active {
-    border-color: green; /* border turns green when active */
-    color: green;
-    transform: scale(1.1);
-  }
-  /* Colorful backgrounds for pages */
-  #tiffin { background: #fff3e0; }      /* light orange */
-  #lunch { background: #e0f7fa; }       /* light cyan */
-  #dinner { background: #fce4ec; }      /* light pink */
-  #snacks { background: #f3e5f5; }      /* light purple */
-  #beverages { background: #e8f5e9; }   /* light green */
-  #selected { background: #ede7f6; }    /* light indigo */
+  .floating-icon.active{border-color:green; color:green; transform:scale(1.1);}
+  .qty-controls{display:flex; align-items:center; gap:8px;}
+  .qty-btn{padding:4px 8px; background:#e67e22; color:white;
+    border:none; border-radius:4px; cursor:pointer;}
+  .total{font-size:18px; font-weight:bold; margin-bottom:10px; color:#2c3e50;}
 </style>
 </head>
 <body>
@@ -119,7 +59,6 @@
 </div>
 
 <div id="dinner" class="page">
-  <!-- 20 sample dinner items -->
   <div class="item">Chapati <span>₹40</span></div>
   <div class="item">Veg Curry <span>₹60</span></div>
   <div class="item">Paneer Butter Masala <span>₹120</span></div>
@@ -154,6 +93,7 @@
 
 <div id="selected" class="page">
   <h3>Selected Items</h3>
+  <div id="total" class="total">Total: ₹0</div>
   <div id="selected-list"></div>
 </div>
 
@@ -162,56 +102,72 @@
 <footer>Sample Address, Bengaluru</footer>
 
 <script>
-  const tabs = document.querySelectorAll('.tab');
-  const pages = document.querySelectorAll('.page');
-  const items = document.querySelectorAll('.item');
-  const selectedPage = document.getElementById('selected');
-  const selectedList = document.getElementById('selected-list');
-  const floatingIcon = document.getElementById('floating-icon');
+  const tabs=document.querySelectorAll('.tab');
+  const pages=document.querySelectorAll('.page');
+  const items=document.querySelectorAll('.item');
+  const selectedPage=document.getElementById('selected');
+  const selectedList=document.getElementById('selected-list');
+  const floatingIcon=document.getElementById('floating-icon');
+  const totalDisplay=document.getElementById('total');
+  let cart={};
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');
-      pages.forEach(p => p.classList.remove('active'));
+      pages.forEach(p=>p.classList.remove('active'));
       document.getElementById(tab.dataset.page).classList.add('active');
     });
   });
 
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.toggle('selected');
+  items.forEach(item=>{
+    item.addEventListener('click',()=>{
+      const name=item.childNodes[0].textContent.trim();
+      const price=parseInt(item.querySelector('span').textContent.replace('₹',''));
+      if(cart[name]){ delete cart[name]; item.classList.remove('selected'); }
+      else{ cart[name]={price:price, qty:1}; item.classList.add('selected'); }
       updateSelected();
     });
   });
 
-  function updateSelected() {
-    selectedList.innerHTML = '';
-    const selectedItems = document.querySelectorAll('.item.selected');
-    if (selectedItems.length > 0) {
-      floatingIcon.style.display = 'block';
+  function updateSelected(){
+    selectedList.innerHTML='';
+    let total=0;
+    const entries=Object.entries(cart);
+    if(entries.length>0){
+      floatingIcon.style.display='block';
       floatingIcon.classList.add('active');
-      selectedItems.forEach(si => {
-        const clone = si.cloneNode(true);
-        clone.addEventListener('click', () => {
-          // unselect original item when tapped in selected list
-          si.classList.remove('selected');
+      entries.forEach(([name,data])=>{
+        total+=data.price*data.qty;
+        const row=document.createElement('div');
+        row.className='item';
+        row.innerHTML=`
+          <span>${name} (₹${data.price})</span>
+          <div class="qty-controls">
+            <button class="qty-btn">-</button>
+            <span>${data.qty}</span>
+            <button class="qty-btn">+</button>
+          </div>`;
+        const minus=row.querySelectorAll('.qty-btn')[0];
+        const plus=row.querySelectorAll('.qty-btn')[1];
+        minus.addEventListener('click',()=>{
+          if(data.qty>1){data.qty--; }
+          else {
+            delete cart[name];
+            document.querySelectorAll('.item').forEach(i=>{
+              if(i.textContent.includes(name)) i.classList.remove('selected');
+            });
+          }
           updateSelected();
         });
-        selectedList.appendChild(clone);
+        plus.addEventListener('click',()=>{
+          data.qty++;
+          updateSelected();
+        });
+        selectedList.appendChild(row);
       });
+      totalDisplay.textContent='Total: ₹'+total;
     } else {
-      floatingIcon.style.display = 'none';
+      floatingIcon.style.display='none';
       floatingIcon.classList.remove('active');
-    }
-  }
-
-  floatingIcon.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    pages.forEach(p => p.classList.remove('active'));
-    selectedPage.classList.add('active');
-  });
-</script>
-
-</body>
-</html>
+      totalDisplay
