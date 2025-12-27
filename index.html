@@ -18,21 +18,20 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: var(--bg-1);
       color: var(--text);
       display: flex;
       flex-direction: column;
     }
 
-    /* Top bars stay visible; content scrolls inside main */
     header {
       background: var(--brand-1);
-      color: #fff;
+      color: white;
       text-align: center;
-      padding: 14px 16px;
-      font-size: 20px;
-      font-weight: 700;
+      padding: 16px;
+      font-size: 22px;
+      font-weight: bold;
       flex-shrink: 0;
     }
 
@@ -46,10 +45,10 @@
     }
 
     nav a {
-      color: #fff;
+      color: white;
       text-decoration: none;
       padding: 10px 12px;
-      font-weight: 600;
+      font-weight: bold;
       border-radius: 8px;
       white-space: nowrap;
       transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
@@ -61,7 +60,6 @@
       transform: scale(1.05);
     }
 
-    /* Scroll container for content */
     main {
       flex: 1;
       overflow-y: auto;
@@ -70,14 +68,14 @@
 
     section {
       display: none;
-      padding: 18px;
-      margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.28);
+      padding: 20px;
+      margin-bottom: 25px;
+      background: rgba(255, 255, 255, 0.25);
       border-radius: 12px;
       backdrop-filter: saturate(130%) blur(0px);
       opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     section.active {
@@ -98,8 +96,8 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
@@ -109,16 +107,14 @@
       border-radius: 10px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       font-size: 14px;
     }
 
-    /* Footer stays at bottom of screen, outside the scroll area */
     footer {
       background: var(--brand-1);
-      color: #fff;
+      color: white;
       text-align: center;
-      padding: 14px 16px;
+      padding: 28px 16px;
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
     }
@@ -126,8 +122,7 @@
 </head>
 <body>
   <header>🍴 Sri Matha Restorent 🍴</header>
-
-  <nav aria-label="Menu categories">
+  <nav>
     <a href="#tiffin" class="active">Tiffin</a>
     <a href="#lunch">Lunch</a>
     <a href="#dinner">Dinner</a>
@@ -204,44 +199,29 @@
   </main>
 
   <footer>
-    📍 Address: 123 Food Street, Bengaluru<br/>
+    📍 Address: 123 Food Street, Bengaluru<br>
     ☎️ Phone: +91 98765 43210
   </footer>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const navLinks = Array.from(document.querySelectorAll("nav a"));
-      const sections = Array.from(document.querySelectorAll("main section"));
+      const navLinks = document.querySelectorAll("nav a");
+      const sections = document.querySelectorAll("main section");
 
-      function setActiveLink(link) {
+      function setActive(link) {
         navLinks.forEach(l => l.classList.remove("active"));
         link.classList.add("active");
       }
 
-      function showSectionById(id) {
+      function showSection(id) {
         sections.forEach(sec => {
           sec.classList.toggle("active", sec.id === id);
         });
       }
 
-      // Click handlers for tabs
       navLinks.forEach(link => {
-        link.addEventListener("click", evt => {
-          evt.preventDefault();
+        link.addEventListener("click", e => {
+          e.preventDefault();
           const id = link.getAttribute("href").slice(1);
-          setActiveLink(link);
-          showSectionById(id);
-          // Update hash without jumping
-          history.replaceState(null, "", "#" + id);
-        });
-      });
-
-      // Initialize based on hash or default to tiffin
-      const initial = (location.hash || "#tiffin").slice(1);
-      const initLink = document.querySelector(`nav a[href="#${initial}"]`) || navLinks[0];
-      setActiveLink(initLink);
-      showSectionById(initial);
-    });
-  </script>
-</body>
-</html>
+          setActive(link);
+          showSection(id);
