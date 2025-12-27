@@ -114,7 +114,7 @@
       background: var(--brand-1);
       color: white;
       text-align: center;
-      padding: 40px 16px; /* increased height */
+      padding: 50px 16px; /* increased height */
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
       font-size: 15px;
@@ -221,9 +221,4 @@
       }
 
       navLinks.forEach(link => {
-        link.addEventListener("click", e => {
-          e.preventDefault();
-          const id = link.getAttribute("href").slice(1);
-          setActive(link);
-          showSection(id);
-          history
+        link
