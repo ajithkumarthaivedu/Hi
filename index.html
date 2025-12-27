@@ -7,9 +7,9 @@
   <style>
     /* Reset and base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; font-family: system-ui, Arial, sans-serif; color: #222; }
+    html, body { height: 100%; overflow: hidden; font-family: system-ui, Arial, sans-serif; color: #222; background: #fff; }
 
-    /* Fixed header and footer */
+    /* Fixed header & footer */
     header, footer {
       position: fixed; left: 0; right: 0; background: #f8f8f8; z-index: 1000;
       text-align: center;
@@ -17,7 +17,7 @@
     header { top: 0; padding: 10px 12px; font-weight: 700; font-size: 18px; border-bottom: 1px solid #e5e5e5; }
     footer { bottom: 0; padding: 8px 12px; font-size: 14px; border-top: 1px solid #e5e5e5; }
 
-    /* Fixed top bar: tabs + current page name */
+    /* Fixed topbar: tabs + current page name */
     .topbar {
       position: fixed; top: 46px; left: 0; right: 0; background: #ffffff; z-index: 1000;
       border-bottom: 1px solid #eee;
@@ -27,30 +27,45 @@
     }
     .tab {
       flex: 1; min-width: 88px; text-align: center; padding: 10px 8px; cursor: pointer;
-      border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: #fafafa;
+      border: 1px solid #ddd; border-radius: 10px; font-size: 14px; background: #fafafa; color: #333;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
     .tab.active {
-      background: #e9f2ff; border-color: #2F66FF; color: #2F66FF; font-weight: 700;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      border-color: #f57c00;
+      color: #bf360c;
+      font-weight: 800;
     }
     .page-title {
       padding: 8px 12px; font-size: 15px; font-weight: 700; color: #444;
     }
 
-    /* Content area (scrolls within, page itself doesn’t) */
+    /* Content area (scrolls inside only) */
     .content {
       position: absolute; left: 0; right: 0;
       top: 46px; /* header height */
     }
-    /* height = total viewport minus header(46) minus topbar(~86) minus footer(~42) */
     .content-inner {
       position: absolute; left: 0; right: 0;
-      top: 86px; /* topbar total */
+      top: 86px; /* topbar total height (tabs + title) */
       bottom: 42px; /* footer height */
       padding: 8px 10px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       background: #fff;
     }
+
+    /* Category color backgrounds for quick visual distinction */
+    .category-tiffin .item:nth-child(odd) { background: #f0fff4; }   /* light green tint */
+    .category-tiffin .item:nth-child(even){ background: #e8fff0; }
+    .category-lunch .item:nth-child(odd)  { background: #f0f7ff; }   /* light blue tint */
+    .category-lunch .item:nth-child(even) { background: #e8f2ff; }
+    .category-dinner .item:nth-child(odd) { background: #fff6f0; }   /* light orange tint */
+    .category-dinner .item:nth-child(even){ background: #ffefe3; }
+    .category-snacks .item:nth-child(odd) { background: #fff0f7; }   /* light pink tint */
+    .category-snacks .item:nth-child(even){ background: #ffe8f2; }
+    .category-beverages .item:nth-child(odd){background: #f7fff0; }  /* light lime tint */
+    .category-beverages .item:nth-child(even){background:#f2ffe8; }
 
     /* Item rows */
     .item {
@@ -61,7 +76,7 @@
     .item-price { font-weight: 700; color: #333; }
 
     /* Selected state */
-    .item.selected { background: #dff6e6; } /* light green */
+    .item.selected { background: #dff6e6 !important; border-left: 4px solid #2F66FF; }
 
     /* Floating cart icon (outline color, transparent fill) */
     .floating-cart {
@@ -121,31 +136,53 @@
         { name: "Idli", price: 30 },
         { name: "Dosa", price: 40 },
         { name: "Vada", price: 25 },
-        { name: "Upma", price: 35 }
+        { name: "Upma", price: 35 },
+        { name: "Pongal", price: 50 },
+        { name: "Masala Dosa", price: 55 },
       ],
       Lunch: [
         { name: "Veg Meals", price: 80 },
         { name: "Curd Rice", price: 60 },
         { name: "Sambar Rice", price: 55 },
-        { name: "Chicken Curry", price: 120 }
+        { name: "Chicken Curry", price: 120 },
+        { name: "Lemon Rice", price: 65 },
+        { name: "Rasam Rice", price: 50 },
       ],
       Dinner: [
         { name: "Chapati", price: 20 },
         { name: "Paratha", price: 25 },
-        { name: "Paneer Curry", price: 100 },
-        { name: "Dal Fry", price: 70 }
+        { name: "Paneer Butter Masala", price: 120 },
+        { name: "Dal Fry", price: 70 },
+        { name: "Veg Biryani", price: 150 },
+        { name: "Chicken Biryani", price: 180 },
+        { name: "Mutton Curry", price: 220 },
+        { name: "Fish Fry", price: 160 },
+        { name: "Egg Curry", price: 90 },
+        { name: "Veg Kurma", price: 100 },
+        { name: "Gobi Manchurian", price: 110 },
+        { name: "Paneer Tikka", price: 130 },
+        { name: "Butter Naan", price: 35 },
+        { name: "Garlic Naan", price: 45 },
+        { name: "Jeera Rice", price: 60 },
+        { name: "Veg Pulao", price: 120 },
+        { name: "Chicken Tikka", price: 150 },
+        { name: "Veg Soup", price: 80 },
+        { name: "Tomato Soup", price: 70 },
+        { name: "Sweet Lassi", price: 50 }
       ],
       Snacks: [
         { name: "Samosa", price: 15 },
         { name: "Pakoda", price: 25 },
         { name: "Bhel Puri", price: 30 },
-        { name: "Pani Puri", price: 25 }
+        { name: "Pani Puri", price: 25 },
+        { name: "Cutlet", price: 35 },
       ],
       Beverages: [
         { name: "Tea", price: 10 },
         { name: "Coffee", price: 15 },
         { name: "Badam Milk", price: 35 },
-        { name: "Lassi", price: 30 }
+        { name: "Lassi", price: 30 },
+        { name: "Lemon Soda", price: 25 },
       ]
     };
 
@@ -153,7 +190,7 @@
     let currentPage = "Tiffin";
     const selectedItems = {}; // key: item name -> { name, price, qty }
 
-    // Init
+    // Elements
     const tabsEl = document.getElementById("tabs");
     const pageTitleEl = document.getElementById("pageTitle");
     const contentEl = document.getElementById("content");
@@ -172,10 +209,12 @@
 
     function showPage(page) {
       currentPage = page;
+
       // Highlight active tab
       document.querySelectorAll(".tab").forEach(t => {
         t.classList.toggle("active", t.getAttribute("data-page") === page);
       });
+
       // Fix page name at top
       pageTitleEl.textContent = page === "Selected" ? "Selected Items" : page;
 
@@ -184,16 +223,44 @@
       cartBtnEl.classList.toggle("hidden", !hasSelection || page === "Selected");
 
       // Render
+      renderPage(page);
+    }
+
+    function renderPage(page) {
+      contentEl.className = "content-inner";
+      // Add category class for color tints
+      const categoryClass = {
+        Tiffin: "category-tiffin",
+        Lunch: "category-lunch",
+        Dinner: "category-dinner",
+        Snacks: "category-snacks",
+        Beverages: "category-beverages",
+        Selected: "" // no tint on selected page
+      }[page] || "";
+
+      contentEl.classList.remove("category-tiffin","category-lunch","category-dinner","category-snacks","category-beverages");
+      if (categoryClass) contentEl.classList.add(categoryClass);
+
       contentEl.innerHTML = "";
 
       if (page === "Selected") {
         renderSelected();
         return;
       }
-      renderItems(menu[page]);
+
+      const items = menu[page] || [];
+      renderItems(items);
     }
 
     function renderItems(items) {
+      if (!items.length) {
+        const empty = document.createElement("div");
+        empty.className = "muted";
+        empty.textContent = "No items available.";
+        contentEl.appendChild(empty);
+        return;
+      }
+
       items.forEach(item => {
         const row = document.createElement("div");
         row.className = "item";
@@ -214,13 +281,6 @@
         row.addEventListener("click", () => toggleItem(item.name, item.price));
         contentEl.appendChild(row);
       });
-
-      if (!items.length) {
-        const empty = document.createElement("div");
-        empty.className = "muted";
-        empty.textContent = "No items available.";
-        contentEl.appendChild(empty);
-      }
     }
 
     function renderSelected() {
@@ -261,15 +321,15 @@
           </span>
         `;
 
-        // Tap row to unselect
+        // Tap row to unselect (unless tapping qty input)
         row.addEventListener("click", (e) => {
-          // If the tap was on the qty input, don't toggle
           if (e.target && e.target.tagName === "INPUT") return;
           toggleItem(item.name, item.price);
         });
 
         // Qty change
-        right.querySelector("input").addEventListener("input", (e) => {
+        const qtyInput = right.querySelector("input");
+        qtyInput.addEventListener("input", (e) => {
           const v = Math.max(1, parseInt(e.target.value || "1", 10));
           updateQty(item.name, v);
         });
@@ -288,13 +348,16 @@
       } else {
         selectedItems[name] = { name, price, qty: 1 };
       }
-      showPage(currentPage);
+      // Repaint current page without jumping
+      renderPage(currentPage);
+      // Update cart visibility
+      const hasSelection = Object.keys(selectedItems).length > 0;
+      cartBtnEl.classList.toggle("hidden", !hasSelection || currentPage === "Selected");
     }
 
     function updateQty(name, qty) {
       if (selectedItems[name]) {
         selectedItems[name].qty = qty;
-        // Re-render selected page to update totals
         if (currentPage === "Selected") renderSelected();
       }
     }
