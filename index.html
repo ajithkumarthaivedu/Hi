@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Sri Matha Restorent</title>
   <style>
     :root {
@@ -18,27 +18,27 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
       background: var(--bg-1);
       color: var(--text);
       display: flex;
       flex-direction: column;
     }
 
+    /* Top bars stay visible; content scrolls inside main */
     header {
       background: var(--brand-1);
-      color: white;
+      color: #fff;
       text-align: center;
-      padding: 15px;
-      font-size: 22px;
-      font-weight: bold;
+      padding: 14px 16px;
+      font-size: 20px;
+      font-weight: 700;
       flex-shrink: 0;
     }
 
     nav {
       display: flex;
       gap: 8px;
-      justify-content: space-between;
       background: var(--brand-2);
       padding: 8px;
       overflow-x: auto;
@@ -46,10 +46,10 @@
     }
 
     nav a {
-      color: white;
+      color: #fff;
       text-decoration: none;
       padding: 10px 12px;
-      font-weight: bold;
+      font-weight: 600;
       border-radius: 8px;
       white-space: nowrap;
       transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
@@ -58,9 +58,10 @@
     nav a.active {
       background: #ffecd2;
       color: var(--brand-1);
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
+    /* Scroll container for content */
     main {
       flex: 1;
       overflow-y: auto;
@@ -68,15 +69,15 @@
     }
 
     section {
-      padding: 20px;
-      margin-bottom: 25px;
-      background: rgba(255, 255, 255, 0.25);
+      display: none;
+      padding: 18px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.28);
       border-radius: 12px;
       backdrop-filter: saturate(130%) blur(0px);
       opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-      display: none;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     section.active {
@@ -86,7 +87,7 @@
     }
 
     h2 {
-      margin: 0 0 10px 0;
+      margin: 0 0 10px;
       color: var(--brand-1);
       border-bottom: 2px solid var(--brand-2);
       padding-bottom: 6px;
@@ -99,7 +100,7 @@
       margin: 0;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 15px;
+      gap: 12px;
     }
 
     li {
@@ -108,14 +109,16 @@
       border-radius: 10px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 14px;
     }
 
+    /* Footer stays at bottom of screen, outside the scroll area */
     footer {
       background: var(--brand-1);
-      color: white;
+      color: #fff;
       text-align: center;
-      padding: 20px;
+      padding: 14px 16px;
       border-top: 2px solid var(--brand-2);
       flex-shrink: 0;
     }
@@ -123,7 +126,8 @@
 </head>
 <body>
   <header>🍴 Sri Matha Restorent 🍴</header>
-  <nav>
+
+  <nav aria-label="Menu categories">
     <a href="#tiffin" class="active">Tiffin</a>
     <a href="#lunch">Lunch</a>
     <a href="#dinner">Dinner</a>
@@ -200,25 +204,44 @@
   </main>
 
   <footer>
-    📍 Address: 123 Food Street, Bengaluru<br>
+    📍 Address: 123 Food Street, Bengaluru<br/>
     ☎️ Phone: +91 98765 43210
   </footer>
 
   <script>
-    const navLinks = document.querySelectorAll("nav a");
-    const sections = document.querySelectorAll("main section");
+    document.addEventListener("DOMContentLoaded", () => {
+      const navLinks = Array.from(document.querySelectorAll("nav a"));
+      const sections = Array.from(document.querySelectorAll("main section"));
 
-    function setActive(link) {
-      navLinks.forEach(l => l.classList.remove("active"));
-      link.classList.add("active");
-    }
+      function setActiveLink(link) {
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      }
 
-    function showSection(id) {
-      sections.forEach(sec => {
-        if (sec.id === id) {
-          sec.classList.add("active");
-        } else {
-          sec.classList.remove("active");
-        }
+      function showSectionById(id) {
+        sections.forEach(sec => {
+          sec.classList.toggle("active", sec.id === id);
+        });
+      }
+
+      // Click handlers for tabs
+      navLinks.forEach(link => {
+        link.addEventListener("click", evt => {
+          evt.preventDefault();
+          const id = link.getAttribute("href").slice(1);
+          setActiveLink(link);
+          showSectionById(id);
+          // Update hash without jumping
+          history.replaceState(null, "", "#" + id);
+        });
       });
-    }
+
+      // Initialize based on hash or default to tiffin
+      const initial = (location.hash || "#tiffin").slice(1);
+      const initLink = document.querySelector(`nav a[href="#${initial}"]`) || navLinks[0];
+      setActiveLink(initLink);
+      showSectionById(initial);
+    });
+  </script>
+</body>
+</html>
